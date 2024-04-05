@@ -1,0 +1,51 @@
+#root {
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+@font-face {
+  font-family: "Gill Sans";
+  src: url("src/fonts/GillSans.ttc") format("ttc"),
+    url("src/fonts/GillSans.ttc") format("ttc");
+  font-weight: 400;
+  font-style: normal;
+}
+body {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgb(225, 218, 204);
+  color: #4f2e12;
+  height: 100px;
+  padding: 10px;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(225, 218, 204);
+  color: #4f2e12;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 10px;
+  height: 50px;
+}
+
+.registration-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sub-btn {
+  width: 100px;
+}
