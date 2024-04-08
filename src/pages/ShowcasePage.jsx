@@ -1,15 +1,16 @@
-import React from "react";
-
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import ImageCarousel from "../components/Carousel";
 import EnterButton from "../components/EnterButton";
+import TransverseLogo from "/public/images/TRANSVERSELOGO.jpeg";
 
 function ShowcasePage() {
   return (
     <div className="showcase-page">
-      <div className="logo-banner"></div>
+      <div className="logo-banner">
+        <img src={TransverseLogo} alt="logo" className="banner-logo" />
+      </div>
       <div className="carousel">
         <ImageCarousel />
       </div>
@@ -28,7 +29,7 @@ function ShowcasePage() {
         fluency. Discover, stay, and converse your way to linguistic mastery
         with Transverse.
       </div>
-      <div className="example-reviews"></div>
+      <div className="example-reviews">exaple reviews</div>
       <div className="signup-prompt">
         <EnterButton />
       </div>
