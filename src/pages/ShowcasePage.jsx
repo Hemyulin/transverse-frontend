@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ImageCarousel from "../components/Carousel";
 import EnterButton from "../components/EnterButton";
 import TransverseLogo from "/public/images/TRANSVERSELOGO.jpeg";
+import "./ShowCasePage.css";
 
 function ShowcasePage() {
   return (
