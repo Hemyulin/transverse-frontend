@@ -27,6 +27,14 @@ body {
   padding: 10px;
 }
 
+.navbar-logo {
+  height: 100%;
+}
+.login-register {
+  display: flex;
+  flex-direction: column;
+}
+
 .footer {
   position: fixed;
   bottom: 0;
@@ -48,4 +56,18 @@ body {
 
 .sub-btn {
   width: 100px;
+}
+
+.showcase-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  gap: 20px;
+}
+.banner-logo {
+  height: 300px;
 }

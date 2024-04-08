@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -31,6 +31,7 @@ function SignUpPage() {
         formData
       );
       console.log(response.data);
+      window.location.href = "/UserHomePage";
     } catch (error) {
       console.log("nope", error.response);
     }
@@ -71,7 +72,7 @@ function SignUpPage() {
           />
         </label>
         <button type="submit" className="sub-btn">
-          Submit
+          <Link to="/user-home">Submit</Link>
         </button>
       </form>
       <p onClick={redirectToSignInPage}>Already registered? Sign in</p>
