@@ -32,6 +32,7 @@ export const SignInPage = () => {
         formData
       );
       console.log(response.data);
+      navigate("/user-home");
     } catch (err) {
       console.log("There has been an error logging in", err.response);
     }
@@ -54,7 +55,7 @@ export const SignInPage = () => {
         <div className="input-div">
           <label>Password:</label>
           <input
-            type="text"
+            type="password"
             name="password"
             placeholder="Password"
             value={formData.password}

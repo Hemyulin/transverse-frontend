@@ -1,8 +1,4 @@
-import React from "react";
-
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import React, { useState } from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 
@@ -14,6 +10,7 @@ import UserHomePage from "./pages/UserHomePage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { OwnProfilePage } from "./pages/OwnProfilePage";
 import { SignInPage } from "./pages/SignInPage";
+import AboutPage from "./pages/AboutPage";
 
 function App() {
   return (
@@ -25,6 +22,7 @@ function App() {
         <Route path="/register-page" element={<SignUpPage />} />
         <Route path="/user-home" element={<UserHomePage />} />
         <Route path="/sign-in-page" element={<SignInPage />} />
+        <Route path="/about" element={<AboutPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />

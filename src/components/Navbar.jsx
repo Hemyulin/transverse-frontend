@@ -1,20 +1,22 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import TransverseLogo from "/public/images/TRANSVERSELOGO.jpeg";
+import Searchbar from "./Searchbar";
 
 function Navbar({ isLoggedIn }) {
   return (
     <div className="navbar">
       <img src={TransverseLogo} alt="logo" className="navbar-logo" />
-      <h1>TRANSVERSE</h1>
+      <Searchbar />
       {isLoggedIn ? (
         <div className="logout-profile">
-          <a href="/logout">Logout</a>
-          <a href="/profile">Profile</a>
+          <Link to="/logout">Logout</Link>
+          <Link to="/profile">Profile</Link>
         </div>
       ) : (
         <div className="login-register">
-          <a href="/login">Login</a>
-          <a href="/SignUpPage">Register</a>
+          <Link to="/login">Login</Link>
+          <Link to="/SignUpPage">Register</Link>
         </div>
       )}
     </div>

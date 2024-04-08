@@ -30,7 +30,7 @@ function ShowcasePage() {
         fluency. Discover, stay, and converse your way to linguistic mastery
         with Transverse.
       </div>
-      <div className="example-reviews">exaple reviews</div>
+      <div className="example-reviews">example reviews</div>
       <div className="signup-prompt">
         <EnterButton />
       </div>
