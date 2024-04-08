@@ -2,11 +2,21 @@ import React from 'react';
 import { useParams } from 'react-router-dom'; // If you're using React Router for navigation
 import Footer from '../components/Footer';
 
+const API_URL = 'https://backend-fakebnb.adaptable.app/apartments' || 'http://localhost:5005';
+
 const OfferPage = () => {
     const { offerId } = useParams();
 
     // Fetch offer details based on offerId using useEffect or any other method
-
+    const getSingleOffer = async () => {
+        const res = await fetch(`${API_URL}/${id}`);
+        const parsed = await res.json();
+        setApartment(parsed);
+      };
+    
+      useEffect(() => {
+        getSingleApartment();
+      }, [id]);
     // Placeholder data for offer details
     const offerDetails = {
         images: [
