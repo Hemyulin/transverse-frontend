@@ -1,9 +1,12 @@
-function Navbar() {
+import React, {useState} from 'react';
+
+function Navbar () {
+
   return (
-    <div className="navbar">
-      <h1>Navbar</h1>
+    <div className="navbar"> 
     </div>
   );
 }
+
 
 export default Navbar;
