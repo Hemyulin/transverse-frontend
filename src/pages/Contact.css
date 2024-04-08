@@ -1,0 +1,10 @@
+.Contact-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px 100px 0 100px;
+  width: 80%;
+  height: 700px;
+  border-bottom: 1px solid black;
+}
