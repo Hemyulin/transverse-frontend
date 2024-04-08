@@ -11,6 +11,7 @@ import Navbar from "./components/navbar";
 import Footer from "./components/footer";
 import SignUpPage from "./pages/SignUpPage";
 import ShowcasePage from "./pages/ShowcasePage";
+import UserHomePage from "./pages/UserHomePage";
 
 function App() {
   return (
@@ -18,8 +19,9 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<SignUpPage />} />
-        <Route path="ShowcasePage" element={<ShowcasePage />} />
-        <Route path="SignUpPage" element={<SignUpPage />} />
+        <Route path="/showcase" element={<ShowcasePage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/user-home" element={<UserHomePage />} />
       </Routes>
       <Footer />
     </div>
