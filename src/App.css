@@ -28,7 +28,7 @@ body {
 }
 
 .navbar-logo {
-  height: 100%;
+  height: 90px;
 }
 .login-register {
   display: flex;

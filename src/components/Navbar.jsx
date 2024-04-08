@@ -6,7 +6,9 @@ import Searchbar from "./Searchbar";
 function Navbar({ isLoggedIn }) {
   return (
     <div className="navbar">
-      <img src={TransverseLogo} alt="logo" className="navbar-logo" />
+      <Link to="/showcase">
+        <img src={TransverseLogo} alt="logo" className="navbar-logo" />
+      </Link>
       <Searchbar />
       {isLoggedIn ? (
         <div className="logout-profile">
@@ -15,8 +17,8 @@ function Navbar({ isLoggedIn }) {
         </div>
       ) : (
         <div className="login-register">
-          <Link to="/login">Login</Link>
-          <Link to="/SignUpPage">Register</Link>
+          <Link to="/sign-in-page">Login</Link>
+          <Link to="/register-page">Register</Link>
         </div>
       )}
     </div>
