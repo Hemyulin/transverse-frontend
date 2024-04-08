@@ -17,7 +17,7 @@ function App() {
     <div className="App">
       <Navbar />
       <Routes>
-        <Route path="/" element={<SignInPage />} />
+        <Route path="/" element={<SignUpPage />} />
       </Routes>
       <Footer />
     </div>

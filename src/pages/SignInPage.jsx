@@ -1,12 +1,19 @@
 import { useState } from "react";
 import "./SignInPage.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const SignInPage = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
+
+  const redirectToRegisterPage = () => {
+    navigate("/register-page");
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -58,6 +65,9 @@ export const SignInPage = () => {
           <button>Sign in</button>
         </div>
       </form>
+      <p onClick={redirectToRegisterPage}>
+        Don't have an account? Register here!
+      </p>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function SignUpPage() {
   const [formData, setFormData] = useState({
@@ -8,6 +8,12 @@ function SignUpPage() {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
+
+  const redirectToSignInPage = () => {
+    navigate("/sign-in-page");
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -68,7 +74,7 @@ function SignUpPage() {
           Submit
         </button>
       </form>
-      Already registered? Sign in
+      <p onClick={redirectToSignInPage}>Already registered? Sign in</p>
     </div>
   );
 }
