@@ -1,49 +1,30 @@
-import React from 'react';
-import { useParams } from 'react-router-dom'; // If you're using React Router for navigation
+import React, {useState, useEffect} from 'react';
+import { useParams } from 'react-router-dom'; // react router have?
 import Footer from '../components/Footer';
 
-const API_URL = 'https://backend-fakebnb.adaptable.app/apartments' || 'http://localhost:5005';
+const API_URL = process.env.NODE_ENV === 'https://transverse.adaptable.app/' || 'http://localhost:5005';//doublecheck thet
 
 const OfferPage = () => {
     const { offerId } = useParams();
+    const [offerDetails, setOfferDetails] = useState(null);
 
-    // Fetch offer details based on offerId using useEffect or any other method
-    const getSingleOffer = async () => {
-        const res = await fetch(`${API_URL}/${id}`);
-        const parsed = await res.json();
-        setApartment(parsed);
-      };
-    
+
       useEffect(() => {
-        getSingleApartment();
-      }, [id]);
-    // Placeholder data for offer details
-    const offerDetails = {
-        images: [
-            "image_url_1",
-            "image_url_2",
-            "image_url_3"
-        ],
-        accommodationInfo: {
-            // Accommodation details
-            title: "Accommodation Title",
-            description: "Accommodation Description",
-            languageOffered: "Language Offered by Host",
-            // Other details like amenities, etc.
-        },
-        location: {
-            // Location details
-            latitude: 48.8566, // Example latitude for Paris
-            longitude: 2.3522, // Example longitude for Paris
-        },
-        hostReviews: [
-            // Placeholder host review data
-            { id: 1, rating: 4.5, comment: "Great host!" },
-            { id: 2, rating: 5, comment: "Amazing experience!" },
-            // Add more review objects as needed
-        ]
-    };
-
+        const getSingleOffer = async () => {
+            try {
+            const res = await fetch(`/api/offers/${offerId}`);
+            const parsed = await res.json();
+            setOfferDetails(parsed);
+            } catch (error) {
+                console.error("could not fetch the offer", error)
+            } 
+          };
+        getSingleOffer();
+      }, [offerId]);
+      if (!offerDetails) {
+        return <div>Loading...</div>
+      }
+  
     return (
         <div>
             {/* Images related to the offer */}
@@ -70,7 +51,7 @@ const OfferPage = () => {
                     height="450"
                     frameBorder="0"
                     style={{ border: 0 }}
-                    src={`https://www.google.com/maps/embed/v1/place?q=${offerDetails.location.latitude},${offerDetails.location.longitude}&key=YOUR_API_KEY`}
+                    src={`https://www.google.com/maps/embed/v1/place?q=${offerDetails.location.latitude},${offerDetails.location.longitude}&key=API_KEY`} //check
                     allowFullScreen
                 ></iframe>
             </div>

@@ -14,6 +14,8 @@ import UserHomePage from "./pages/UserHomePage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { OwnProfilePage } from "./pages/OwnProfilePage";
 import { SignInPage } from "./pages/SignInPage";
+import OfferPage from "./pages/OfferPage";
+import AboutPage from "./pages/AboutPage";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
         <Route path="/register-page" element={<SignUpPage />} />
         <Route path="/user-home" element={<UserHomePage />} />
         <Route path="/sign-in-page" element={<SignInPage />} />
+        <Route path="/offer/:offerId" element={<OfferPage />} />
+        <Route path="/about" element={<AboutPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />

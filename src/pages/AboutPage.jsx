@@ -3,12 +3,15 @@ import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
 
 const AboutPage = () => {
+    const handleRegister = () => {
+        console.log("take me to the registration page!")
+    };
     return (
         <div>
             <div className="navbar">
                 <div className="navbar-left">
                     <Link to="/">
-                        <img src="LOGOTOBEFOUND.png" alt="app logo"/>
+                        <img src="TRANSVERSELOGO.jpg" alt="app logo"/>
                     </Link>
                 </div>
                 <div className="navbar-right">
