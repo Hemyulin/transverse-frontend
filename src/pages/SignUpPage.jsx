@@ -2,14 +2,19 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-function HomePage() {
+function SignUpPage() {
   const [formData, setFormData] = useState({
     userName: "",
     email: "",
     password: "",
   });
+  const [isVisible, setIsVisible] = useState(false);
 
   const handleChange = (event) => {
+    console.log(
+      event.target, // There has been a change in THIS field here
+      event.target.value // Here's its content
+    );
     const { name, value } = event.target;
     setFormData({
       ...formData,
@@ -72,4 +77,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default SignUpPage;

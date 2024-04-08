@@ -8,14 +8,14 @@ import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
-import HomePage from "./pages/HomePage";
+import SignUpPage from "./pages/SignUpPage";
 
 function App() {
   return (
     <div className="App">
       <Navbar />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<SignUpPage />} />
       </Routes>
       <Footer />
     </div>
