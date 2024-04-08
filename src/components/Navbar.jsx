@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import TransverseLogo from "/public/images/TRANSVERSELOGO.jpeg";
+import TransverseLogo from "/public/images/TRANSVERSELOGO.png";
 import Searchbar from "./Searchbar";
 
 function Navbar({ isLoggedIn }) {
