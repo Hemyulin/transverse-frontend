@@ -11,10 +11,6 @@ function SignUpPage() {
   const [isVisible, setIsVisible] = useState(false);
 
   const handleChange = (event) => {
-    console.log(
-      event.target, // There has been a change in THIS field here
-      event.target.value // Here's its content
-    );
     const { name, value } = event.target;
     setFormData({
       ...formData,
