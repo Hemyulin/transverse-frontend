@@ -1,10 +1,10 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const AboutPage = () => {
+const ContactPage = () => {
   const navigate = useNavigate();
 
-  return <div>yoyoyoyoyo</div>;
+  return <div>Contact us</div>;
 };
 
-export default AboutPage;
+export default ContactPage;

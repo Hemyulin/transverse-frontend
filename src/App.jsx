@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 
-import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import ContactPage from "./pages/Contact";
 import SignUpPage from "./pages/SignUpPage";
 import ShowcasePage from "./pages/ShowcasePage";
 import UserHomePage from "./pages/UserHomePage";
@@ -23,6 +24,7 @@ function App() {
         <Route path="/user-home" element={<UserHomePage />} />
         <Route path="/sign-in-page" element={<SignInPage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
