@@ -1,0 +1,15 @@
+.sign-in-form {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+.input-div {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 35%;
+}
+
+input {
+  margin: 0 0 0.5em 1em;
+}

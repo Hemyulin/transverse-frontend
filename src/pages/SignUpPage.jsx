@@ -68,6 +68,7 @@ function SignUpPage() {
           Submit
         </button>
       </form>
+      Already registered? Sign in
     </div>
   );
 }

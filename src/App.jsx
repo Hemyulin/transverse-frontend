@@ -10,13 +10,14 @@ import Navbar from "./components/Navbar";
 import SignUpPage from "./pages/SignUpPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { OwnProfilePage } from "./pages/OwnProfilePage";
+import { SignInPage } from "./pages/SignInPage";
 
 function App() {
   return (
     <div className="App">
       <Navbar />
       <Routes>
-        <Route path="/" element={<OwnProfilePage />} />
+        <Route path="/" element={<SignInPage />} />
       </Routes>
       <Footer />
     </div>
