@@ -75,7 +75,8 @@ function SignUpPage() {
           <Link to="/user-home">Submit</Link>
         </button>
       </form>
-      <p onClick={redirectToSignInPage}>Already registered? Sign in</p>
+      <p onClick={redirectToSignInPage}>Already registered?</p>
+      <Link to="/sign-in-page">Sign in</Link>
     </div>
   );
 }
