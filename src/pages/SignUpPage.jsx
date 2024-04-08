@@ -8,7 +8,6 @@ function SignUpPage() {
     email: "",
     password: "",
   });
-  const [isVisible, setIsVisible] = useState(false);
 
   const handleChange = (event) => {
     console.log(
