@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import TransverseLogo from "/public/images/TRANSVERSELOGO.png";
 import Searchbar from "./Searchbar";
+import { AuthContext } from "../authContext/auth.context";
 
-function Navbar({ isLoggedIn }) {
+function Navbar() {
+  const { isLoggedIn } = useContext(AuthContext);
+
   return (
     <div className="navbar">
       <Link to="/showcase">
@@ -12,7 +15,7 @@ function Navbar({ isLoggedIn }) {
       <Searchbar />
       {isLoggedIn ? (
         <div className="logout-profile">
-          <Link to="/logout">Logout</Link>
+          <Link to="/sign-out-page">Logout</Link>
           <Link to="/profile">Profile</Link>
         </div>
       ) : (
