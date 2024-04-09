@@ -10,7 +10,7 @@ function UserHomePage() {
         const response = await axios.get("/api/user/data");
         setUserData(response.data);
       } catch (error) {
-        console.error("Erroir finding data", error);
+        console.error("Error finding data", error);
       }
     };
     fetchData();

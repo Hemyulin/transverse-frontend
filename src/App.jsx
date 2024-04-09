@@ -14,6 +14,7 @@ import { SignInPage } from "./pages/SignInPage";
 import LogoutPage from "./pages/SignOutPage";
 import AboutPage from "./pages/AboutPage";
 import OfferPage from "./pages/OfferPage";
+import UserProfilePage from "./pages/UserProfilePage";
 
 //states
 import LoggedState from "./components/Logged_in_state";
@@ -71,6 +72,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/offer-page/offerId" element={<OfferPage />} />
+        <Route path="/users" element={<UserProfilePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
