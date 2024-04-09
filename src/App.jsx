@@ -37,7 +37,7 @@ function App() {
         <Route
           path="/user-home"
           element={
-            <LoggedState requireLoggedIn={true} redirectTo="/showcase">
+            <LoggedState requireLoggedIn={false} redirectTo="/showcase">
               <UserHomePage />
             </LoggedState>
           }
