@@ -11,16 +11,29 @@ function AuthProviderWrapper(props) {
   const [user, setUser] = useState(null);
   const [authError, setAuthError] = useState(null);
 
-  const loginUser = (name, email, password) => {
+  const registerUser = (userName, email, password) => {
     axios
-      .post(`${API_URL}/auth/login`, { name, email, password })
+      .post(`${API_URL}/auth/registration`, { userName, email, password })
       .then((response) => {
-        const token = response.data.authToken; // Assuming the response contains the token
+        loginUser(email, password);
+      })
+      .catch((error) => {
+        console.error("Registration failed", error.response.data);
+        setAuthError(error.response.data.message);
+      });
+  };
+
+  const loginUser = (email, password) => {
+    setAuthError(null);
+    axios
+      .post(`${API_URL}/auth/login`, { email, password })
+      .then((response) => {
+        const token = response.data.token; // Assuming the response contains the token
         storeToken(token);
         authenticateUser(); // Now that the token is stored, authenticate the user
       })
       .catch((error) => {
-        console.error("Login error:", error.response.data);
+        console.error("Login error:", error.response.data.message);
         // Handle login error
       });
   };
@@ -69,7 +82,7 @@ function AuthProviderWrapper(props) {
 
   const removeToken = () => {
     // Upon logout, remove the token from the localStorage
-    localStorage.removeItem("authToken");
+    localStorage.removeItem("token");
   };
 
   const logOutUser = () => {
@@ -93,6 +106,7 @@ function AuthProviderWrapper(props) {
         authenticateUser,
         logOutUser,
         loginUser,
+        registerUser,
         authError,
       }}
     >

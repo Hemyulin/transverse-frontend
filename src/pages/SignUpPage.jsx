@@ -31,7 +31,7 @@ function SignUpPage() {
         formData
       );
       console.log(response.data);
-      window.location.href = "/user-home";
+      navigate("/user-home");
     } catch (error) {
       console.log("nope", error.response);
     }
@@ -72,7 +72,7 @@ function SignUpPage() {
           />
         </label>
         <button type="submit" className="sub-btn">
-          <Link to="/user-home">Submit</Link>
+          Sign up
         </button>
       </form>
       <p onClick={redirectToSignInPage}>Already registered?</p>
