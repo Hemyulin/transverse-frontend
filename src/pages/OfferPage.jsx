@@ -35,9 +35,8 @@ const OfferPage = () => {
             <div className="offer-accommodation">
                 <h2>{offerDetails.title}</h2>
                 <p>{offerDetails.description}</p>
-                {/*<p>Language Offered: {offerDetails.accommodationInfo.languageOffered}</p>*/}
             </div>
-            <div className="offer-location">
+            {/* <div className="offer-location">
                 <h2>Location</h2>
                 <iframe
                     title="Offer Location"
@@ -48,14 +47,13 @@ const OfferPage = () => {
                     src={`https://www.google.com/maps/embed/v1/place?q=${offerDetails.location.latitude},${offerDetails.location.longitude}&key=API_KEY`} //check
                     allowFullScreen
                 ></iframe>
-            </div>
+            </div> */}
             {/* Host Reviews */}
             <div className="offer-reviews">
                 <h2>Host Reviews</h2>
-                {offerDetails.hostReviews.map(review => (
+                {offerDetails.comments.map(review => (
                     <div key={review.id}>
                         <p>Rating: {review.rating}</p>
-                        <p>Comment: {review.comment}</p>
                     </div>
                 ))}
             </div>
