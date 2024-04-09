@@ -1,14 +1,21 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../authContext/auth.context";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function LoggedState({ requireLoggedIn, redirectTo, children }) {
   const { isLoggedIn, isLoading } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  if (isLoading) return <p>Loading ...</p>;
+  useEffect(() => {
+    if (!isLoading) {
+      if (requireLoggedIn !== isLoggedIn) {
+        navigate(redirectTo);
+      }
+    }
+  }, [isLoggedIn, isLoading, requireLoggedIn, redirectTo, navigate]);
 
-  if ((requireLoggedIn && !isLoggedIn) || (!requireLoggedIn && isLoggedIn)) {
-    return <Navigate to={redirectTo} />;
+  if (isLoading) {
+    return <p>Loading...</p>;
   }
   return children;
 }

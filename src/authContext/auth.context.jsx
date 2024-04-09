@@ -39,12 +39,12 @@ function AuthProviderWrapper(props) {
   };
 
   const storeToken = (token) => {
-    localStorage.setItem("authToken", token);
+    localStorage.setItem("token", token);
   };
 
   const authenticateUser = () => {
     // Get the stored token from the localStorage
-    const storedToken = localStorage.getItem("authToken");
+    const storedToken = localStorage.getItem("token");
 
     // If the token exists in the localStorage
     if (storedToken) {
