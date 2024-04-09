@@ -1,6 +1,10 @@
 import "./OwnProfilePage.css";
 
 export const OwnProfilePage = () => {
+  const API_URL =
+    "https://backend-fakebnb.adaptable.app/apartments" ||
+    "http://localhost:5005";
+
   return (
     <div className="own-profile-page">
       <div className="profile-details-card">
