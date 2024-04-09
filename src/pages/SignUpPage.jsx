@@ -31,7 +31,7 @@ function SignUpPage() {
         formData
       );
       console.log(response.data);
-      window.location.href = "/UserHomePage";
+      window.location.href = "/user-home";
     } catch (error) {
       console.log("nope", error.response);
     }
