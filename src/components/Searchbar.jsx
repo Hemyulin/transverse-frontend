@@ -13,7 +13,7 @@ function Searchbar ({ onSearch }) {
   return (
     <div className="navbar">
       <div className="navbar-left">
-        <img src="LOGOTOBEFOUND" alt="app logo"/> 
+        <img src="TRANSVERSELOGO.jpg" alt="app logo"/> 
       </div>
       <div className="navbar-center">
        

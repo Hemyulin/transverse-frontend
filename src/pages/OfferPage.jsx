@@ -27,24 +27,18 @@ const OfferPage = () => {
   
     return (
         <div>
-            {/* Images related to the offer */}
             <div className="offer-images">
                 {offerDetails.images.map((imageUrl, index) => (
                     <img key={index} src={imageUrl} alt={`Image ${index + 1}`} />
                 ))}
             </div>
-            {/* Accommodation Info */}
             <div className="offer-accommodation">
-                <h2>{offerDetails.accommodationInfo.title}</h2>
-                <p>{offerDetails.accommodationInfo.description}</p>
-                <p>Language Offered: {offerDetails.accommodationInfo.languageOffered}</p>
-                {/* Add more details like amenities, etc. */}
+                <h2>{offerDetails.title}</h2>
+                <p>{offerDetails.description}</p>
+                {/*<p>Language Offered: {offerDetails.accommodationInfo.languageOffered}</p>*/}
             </div>
-            {/* Location Map */}
             <div className="offer-location">
                 <h2>Location</h2>
-                {/* Embed Google Maps or any other map service */}
-                {/* Example using Google Maps: */}
                 <iframe
                     title="Offer Location"
                     width="600"
