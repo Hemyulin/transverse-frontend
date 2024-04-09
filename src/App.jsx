@@ -35,6 +35,15 @@ function App() {
         />
 
         <Route
+          path="/profile"
+          element={
+            <LoggedState requireLoggedIn={false} redirectTo="/showcase">
+              <OwnProfilePage />
+            </LoggedState>
+          }
+        />
+
+        <Route
           path="/user-home"
           element={
             <LoggedState requireLoggedIn={false} redirectTo="/showcase">
