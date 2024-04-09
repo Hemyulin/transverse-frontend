@@ -27,7 +27,7 @@ function SignUpPage() {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5005/auth/registration",
+        "https://transverse-backend.adaptable.app/auth/registration",
         formData
       );
       console.log(response.data);
