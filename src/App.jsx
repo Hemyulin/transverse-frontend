@@ -11,7 +11,12 @@ import UserHomePage from "./pages/UserHomePage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { OwnProfilePage } from "./pages/OwnProfilePage";
 import { SignInPage } from "./pages/SignInPage";
+import LogoutPage from "./pages/SignOutPage";
 import AboutPage from "./pages/AboutPage";
+import OfferPage from "./pages/OfferPage";
+
+//states
+import LoggedState from "./components/Logged_in_state";
 
 function App() {
   return (
@@ -20,11 +25,43 @@ function App() {
       <Routes>
         <Route path="/" element={<SignUpPage />} />
         <Route path="/showcase" element={<ShowcasePage />} />
-        <Route path="/register-page" element={<SignUpPage />} />
-        <Route path="/user-home" element={<UserHomePage />} />
-        <Route path="/sign-in-page" element={<SignInPage />} />
+        <Route
+          path="/register-page"
+          element={
+            <LoggedState requireLoggedIn={false} redirectTo="/showcase">
+              <SignUpPage />
+            </LoggedState>
+          }
+        />
+
+        <Route
+          path="/user-home"
+          element={
+            <LoggedState requireLoggedIn={false} redirectTo="/showcase">
+              <UserHomePage />
+            </LoggedState>
+          }
+        />
+
+        <Route
+          path="/sign-in-page"
+          element={
+            <LoggedState requireLoggedIn={false} redirectTo="/showcase">
+              <SignInPage />
+            </LoggedState>
+          }
+        />
+        <Route
+          path="/sign-out-page"
+          element={
+            <LoggedState requireLoggedIn={true} redirectTo="/showcase">
+              <LogoutPage />
+            </LoggedState>
+          }
+        ></Route>
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        {/* <Route path="/offer-page" element={<OfferPage />} /> */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
