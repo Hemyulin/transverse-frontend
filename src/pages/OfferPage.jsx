@@ -13,7 +13,7 @@ const OfferPage = () => {
   useEffect(() => {
     const getSingleOffer = async () => {
       try {
-        const res = await fetch(`/api/offers/${offerId}`);
+        const res = await fetch(`${API_URL}/api/offers/${offerId}`);
         const parsed = await res.json();
         setOfferDetails(parsed);
       } catch (error) {
