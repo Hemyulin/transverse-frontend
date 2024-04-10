@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import "./OwnProfilePage.css";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 export const OwnProfilePage = () => {
   const { id } = useParams();
@@ -26,11 +27,11 @@ export const OwnProfilePage = () => {
       <div className="profile-details-card">
         <div className="img-and-name">
           <div className="profile-img-div">IMG</div>
-          <h4>Bobby McBobface</h4>
+          <h4>{data ? data.name : "Loading..."}</h4>
         </div>
         <div className="profile-info">
           <ul>
-            <li>response.data.email</li>
+            <li>Name</li>
             <li>Hobbies</li>
             <li>Languages</li>
           </ul>
