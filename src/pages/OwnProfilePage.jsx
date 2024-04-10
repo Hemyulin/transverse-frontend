@@ -22,6 +22,8 @@ export const OwnProfilePage = () => {
     getData();
   }, [id]);
 
+  console.log(data);
+
   return (
     <div className="own-profile-page">
       <div className="profile-details-card">

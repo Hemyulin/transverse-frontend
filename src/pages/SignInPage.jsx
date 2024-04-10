@@ -31,7 +31,8 @@ export const SignInPage = () => {
         "https://transverse-backend.adaptable.app/auth/login",
         formData
       );
-      console.log(response.data);
+      const token = response.data.token;
+      localStorage.setItem("jwtToken", token);
       navigate("/user-home");
     } catch (err) {
       console.log("There has been an error logging in", err.response);
