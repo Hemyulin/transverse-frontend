@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5005";
+
 function SignUpPage() {
   const [formData, setFormData] = useState({
     userName: "",
@@ -27,7 +29,7 @@ function SignUpPage() {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "https://transverse-backend.adaptable.app/auth/registration",
+        `${API_URL}/auth/registration`,
         formData
       );
       console.log(response.data);

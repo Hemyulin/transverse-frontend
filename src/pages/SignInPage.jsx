@@ -3,6 +3,8 @@ import "./SignInPage.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5005";
+
 export const SignInPage = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -27,10 +29,7 @@ export const SignInPage = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post(
-        "https://transverse-backend.adaptable.app/auth/login",
-        formData
-      );
+      const response = await axios.post(`${API_URL}/auth/login`, formData);
       const token = response.data.token;
       localStorage.setItem("jwtToken", token);
       navigate("/user-home");
