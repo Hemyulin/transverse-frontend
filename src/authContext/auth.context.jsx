@@ -43,25 +43,29 @@ function AuthProviderWrapper(props) {
   };
 
   const storeToken = (token) => {
-    localStorage.setItem("token", token);
+    localStorage.setItem("jwtToken", token);
   };
 
   const authenticateUser = () => {
-    const storedToken = localStorage.getItem("token");
+    const storedToken = localStorage.getItem("jwtToken");
+
     if (!storedToken) {
       setIsLoggedIn(false);
       setIsLoading(false);
       setUser(null);
+
       return;
     }
     axios
       .get(`${API_URL}/auth/verify`, {
-        headers: { Authorization: `Bearer ${storedToken}` },
+        headers: { authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
         const user = response.data;
         setIsLoggedIn(true);
+        setIsLoading(false);
         setUser(user);
+        console.log("test");
       })
       .catch((error) => {
         setAuthError(error.response?.data.message || "Failed to authenticate");
@@ -73,11 +77,11 @@ function AuthProviderWrapper(props) {
 
   const removeToken = () => {
     // Upon logout, remove the token from the localStorage
-    localStorage.removeItem("token");
+    localStorage.removeItem("jwtToken");
   };
 
   const logOutUser = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("jwtToken");
     setIsLoggedIn(false);
     setIsLoading(false);
     setUser(null);
@@ -86,6 +90,7 @@ function AuthProviderWrapper(props) {
 
   useEffect(() => {
     authenticateUser();
+    console.log(isLoggedIn, "isLoggedIn state updated");
   }, []);
 
   return (
