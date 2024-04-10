@@ -29,7 +29,7 @@ function App() {
         <Route
           path="/register-page"
           element={
-            <LoggedState requireLoggedIn={false} redirectTo="/showcase">
+            <LoggedState requireLoggedIn={false}>
               <SignUpPage />
             </LoggedState>
           }
@@ -38,7 +38,7 @@ function App() {
         <Route
           path="/profile/:userId"
           element={
-            <LoggedState requireLoggedIn={false} redirectTo="/showcase">
+            <LoggedState requireLoggedIn={false}>
               <OwnProfilePage />
             </LoggedState>
           }
@@ -47,7 +47,7 @@ function App() {
         <Route
           path="/user-home"
           element={
-            <LoggedState requireLoggedIn={false} redirectTo="/showcase">
+            <LoggedState requireLoggedIn={false}>
               <UserHomePage />
             </LoggedState>
           }
@@ -64,7 +64,7 @@ function App() {
         <Route
           path="/sign-out-page"
           element={
-            <LoggedState requireLoggedIn={true} redirectTo="/showcase">
+            <LoggedState requireLoggedIn={true}>
               <LogoutPage />
             </LoggedState>
           }

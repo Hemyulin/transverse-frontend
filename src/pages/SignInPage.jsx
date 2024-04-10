@@ -35,6 +35,7 @@ export const SignInPage = () => {
       const token = response.data.token;
       localStorage.setItem("jwtToken", token);
       await authenticateUser();
+      console.log("should nav to home now");
 
       navigate("/user-home");
     } catch (err) {
