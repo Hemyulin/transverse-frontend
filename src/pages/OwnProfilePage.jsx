@@ -29,7 +29,11 @@ export const OwnProfilePage = () => {
 
         const offersResponse = await axios.get(`${API_URL}/api/offers`);
 
-        console.log(offersResponse.data);
+        console.log(offersResponse.data.offers);
+
+        if (offersResponse.data.offers.host === userId) {
+          console.log("YES");
+        }
         setOffers(offersResponse.data.offers);
       } catch (err) {
         console.log(err);
