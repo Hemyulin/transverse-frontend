@@ -45,7 +45,7 @@ export const OwnProfilePage = () => {
         </div>
         <div className="profile-info">
           <ul>
-            <li>Name</li>
+            <li>{data ? data.email : "Loading..."}</li>
             <li>Hobbies</li>
             <li>Languages</li>
           </ul>
