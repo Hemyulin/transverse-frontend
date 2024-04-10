@@ -61,7 +61,7 @@ const UserProfilePage = ({ loggedInUserId }) => {
       userContent = (
         <div className="user-profile">
           <h1>{userData.userName}</h1>
-          <p>Please log in to view user data</p>
+          <p>Please log in to view all the information</p>
         </div>
       );
     }

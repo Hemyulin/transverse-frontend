@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom'; // react router have?
 import Footer from '../components/Footer';
 
-const API_URL = 'https://transverse.adaptable.app/' || 'http://localhost:5005';//doublecheck thet
+const API_URL = 'https://transverse.adaptable.app/' 
 
 const OfferPage = () => {
     const { offerId } = useParams();
@@ -12,7 +12,7 @@ const OfferPage = () => {
       useEffect(() => {
         const getSingleOffer = async () => {
             try {
-            const res = await fetch(`/api/offers/${offerId}`);
+            const res = await fetch(`{API_URL}/api/offers/${offerId}`);
             const parsed = await res.json();
             setOfferDetails(parsed);
             } catch (error) {
