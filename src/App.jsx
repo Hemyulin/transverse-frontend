@@ -25,7 +25,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<SignUpPage />} />
-        <Route path="/showcase" element=jik{<ShowcasePage />} />
+        <Route path="/showcase" element={<ShowcasePage />} />
         <Route
           path="/register-page"
           element={

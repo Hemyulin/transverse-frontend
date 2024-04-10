@@ -2,40 +2,75 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 const UserProfilePage = ({ loggedInUserId }) => {
-const {userId} = useParams();
-const [userData, setUserData] = useState(null);
-const [isOwnProfile, setIsOwnProfile] = useState(false);
+  const { userId } = useParams();
+  const [userData, setUserData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    
-    fetch(`/api/user/data/${userId}`)
-      .then(response => response.json())
-      .then(data => {
-        setUserData(data);
-        setIsOwnProfile(data._id === loggedInUserId);
-      })
-      .catch(error => console.error('could not fetch user data:', error));
-  }, [userId, loggedInUserId]);
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(`/protected/user/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+          }
+        });
+        if (!response.ok) {
+          throw new Error('could not fetch user data');
+        }
+        const userData = await response.json();
+        setUserData(userData);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('coud not fetch user data:', error);
+        setIsError(true);
+        setIsLoading(false);
+      }
+    };
 
-  if (!userData) {
+    fetchUserData();
+  }, [userId]);
+
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
-  let loggedIn;
-  if (isOwnProfile) {
-loggedIn = (
-    <p>
-        Bio: {userData.bio}
-    </p>
-);
-} else {
-    loggedIn = <p>{userData.name} is successfully registered</p>
-}
-  return (
-    <div className="user-profile">
-      <h1>{userData.name}</h1>
-    </div>
-  );
+  if (isError) {
+    return <div>Error fetching user data</div>;
+  }
+
+  let userContent;
+  if (userData) {
+    if (loggedInUserId) {
+      if (loggedInUserId === userId) {
+        userContent = (
+          <div className="user-profile">
+            <h1>{userData.userName}</h1>
+            <p>Email: {userData.email}</p>
+          </div>
+        );
+      } else {
+        userContent = (
+          <div className="user-profile">
+            <h1>{userData.userName}</h1>
+            <p>{userData.userName} is registered, bravo!</p>
+          </div>
+        );
+      }
+    } else {
+      userContent = (
+        <div className="user-profile">
+          <h1>{userData.userName}</h1>
+          <p>Please log in to view user data</p>
+        </div>
+      );
+    }
+  } else {
+    userContent = <div>User does not exist</div>;
+  }
+  
+  return userContent;
+  
 };
 
 export default UserProfilePage;
