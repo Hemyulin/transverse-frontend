@@ -18,6 +18,7 @@ export const OwnProfilePage = () => {
         }
 
         if (user) {
+          console.log("User from context:", user);
           setuserData(user);
         } else {
           const userProfileResponse = await axios.get(
@@ -26,7 +27,6 @@ export const OwnProfilePage = () => {
               headers: { authorization: `Bearer ${token}` },
             }
           );
-
           setuserData(userProfileResponse.data);
         }
 
@@ -67,7 +67,7 @@ export const OwnProfilePage = () => {
       <div className="offers-div">
         {/* Map through the offers array and render each offer */}
         {offers.map((offer) => (
-          <div className="offer-card">
+          <div className="offer-card" key={offer._id}>
             <h4 key={offer.id}>{offer.title}</h4>
             <p>{offer.description}</p>
           </div>
