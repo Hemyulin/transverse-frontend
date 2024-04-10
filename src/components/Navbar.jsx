@@ -9,7 +9,7 @@ function Navbar() {
   console.log("Is Logged In NAVBAR:", isLoggedIn);
   return (
     <div className="navbar">
-      {isLoggedIn ? (
+      {!isLoggedIn ? (
         <Link to="/showcase">
           <img src={TransverseLogo} alt="logo" className="navbar-logo" />
         </Link>

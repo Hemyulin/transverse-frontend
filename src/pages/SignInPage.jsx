@@ -72,7 +72,7 @@ export const SignInPage = () => {
         </div>
       </form>
       <p onClick={redirectToRegisterPage}>
-        Don't have an account? Register here!
+        Don't have an account? Register <button>here!</button>
       </p>
     </div>
   );
