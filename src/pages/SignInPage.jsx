@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "./SignInPage.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../authContext/auth.context.jsx";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5005";
 
@@ -10,6 +11,7 @@ export const SignInPage = () => {
     email: "",
     password: "",
   });
+  const { authenticateUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -32,6 +34,8 @@ export const SignInPage = () => {
       const response = await axios.post(`${API_URL}/auth/login`, formData);
       const token = response.data.token;
       localStorage.setItem("jwtToken", token);
+      await authenticateUser();
+
       navigate("/user-home");
     } catch (err) {
       console.log("There has been an error logging in", err.response);

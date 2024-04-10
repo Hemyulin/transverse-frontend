@@ -56,7 +56,7 @@ function App() {
         <Route
           path="/sign-in-page"
           element={
-            <LoggedState requireLoggedIn={false} redirectTo="/showcase">
+            <LoggedState requireLoggedIn={false} redirectTo="/user-home">
               <SignInPage />
             </LoggedState>
           }

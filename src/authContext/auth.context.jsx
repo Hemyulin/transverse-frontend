@@ -11,86 +11,93 @@ function AuthProviderWrapper(props) {
   const [user, setUser] = useState(null);
   const [authError, setAuthError] = useState(null);
 
-  const registerUser = (userName, email, password) => {
-    setIsLoading(true);
-    axios
-      .post(`${API_URL}/auth/registration`, { userName, email, password })
-      .then(() => loginUser(email, password)) //log in after registration
-      .catch((error) =>
-        setAuthError(error.response?.data.message || "Registration failed")
-      )
-      .finally(() => setIsLoading(false));
-  };
-
-  const loginUser = (email, password) => {
-    setAuthError(null);
-    setIsLoading(true);
-    axios
-      .post(`${API_URL}/auth/login`, { email, password })
-      .then((response) => {
-        const token = response.data.token;
-        if (token) {
-          storeToken(token);
-          authenticateUser();
-        } else {
-          setAuthError("No token received");
-        }
-      })
-      .catch((error) => {
-        setAuthError(error.response?.data.message || "Login failed");
-      })
-      .finally(() => setIsLoading(false));
-  };
-
   const storeToken = (token) => {
     localStorage.setItem("jwtToken", token);
   };
 
-  const authenticateUser = () => {
-    const storedToken = localStorage.getItem("jwtToken");
+  const removeToken = () => {
+    localStorage.removeItem("jwtToken");
+  };
 
+  // Authenticate User
+  const authenticateUser = async () => {
+    const storedToken = localStorage.getItem("jwtToken");
     if (!storedToken) {
       setIsLoggedIn(false);
       setIsLoading(false);
       setUser(null);
-
       return;
     }
-    axios
-      .get(`${API_URL}/auth/verify`, {
-        headers: { authorization: `Bearer ${storedToken}` },
-      })
-      .then((response) => {
-        const user = response.data;
-        setIsLoggedIn(true);
-        setIsLoading(false);
-        setUser(user);
-        console.log("test");
-      })
-      .catch((error) => {
-        setAuthError(error.response?.data.message || "Failed to authenticate");
-        setIsLoggedIn(false);
-        setUser(null);
-      })
-      .finally(() => setIsLoading(false));
+
+    setIsLoading(true);
+    try {
+      const response = await axios.get(`${API_URL}/auth/verify`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      });
+      setIsLoggedIn(true);
+      setIsLoading(false);
+      setUser(response.data);
+    } catch (error) {
+      setAuthError(error.response?.data.message || "Failed to authenticate");
+      setIsLoggedIn(false);
+      setIsLoading(false);
+      setUser(null);
+    }
   };
 
-  const removeToken = () => {
-    // Upon logout, remove the token from the localStorage
-    localStorage.removeItem("jwtToken");
+  // Login User
+  const loginUser = async (email, password) => {
+    setAuthError(null);
+    setIsLoading(true);
+
+    try {
+      const response = await axios.post(`${API_URL}/auth/login`, {
+        email,
+        password,
+      });
+      const token = response.data.token;
+      if (token) {
+        storeToken(token);
+        console.log("Logging in, token stored");
+        await authenticateUser();
+      } else {
+        setAuthError("No token received");
+      }
+    } catch (error) {
+      setAuthError(error.response?.data.message || "Login failed");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
+  // Register User
+  const registerUser = async (userName, email, password) => {
+    setIsLoading(true);
+    try {
+      await axios.post(`${API_URL}/auth/registration`, {
+        userName,
+        email,
+        password,
+      });
+      await loginUser(email, password); //log in after registration
+    } catch (error) {
+      setAuthError(error.response?.data.message || "Registration failed");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Logout User
   const logOutUser = () => {
-    localStorage.removeItem("jwtToken");
+    removeToken();
+    console.log("Logging out, token removed");
     setIsLoggedIn(false);
     setIsLoading(false);
     setUser(null);
-    removeToken();
   };
 
   useEffect(() => {
     authenticateUser();
-    console.log(isLoggedIn, "isLoggedIn state updated");
   }, []);
 
   return (
