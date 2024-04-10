@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+const API_URL = 'https://transverse.adaptable.app/' 
+
 const UserProfilePage = ({ loggedInUserId }) => {
   const { userId } = useParams();
   const [userData, setUserData] = useState(null);
@@ -10,7 +12,7 @@ const UserProfilePage = ({ loggedInUserId }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`/protected/user/${userId}`, {
+        const response = await fetch(`${API_URL}/protected/user/${userId}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`
           }
@@ -36,7 +38,7 @@ const UserProfilePage = ({ loggedInUserId }) => {
   }
 
   if (isError) {
-    return <div>Error fetching user data</div>;
+    return <div>data of the user cannot be fetched</div>;
   }
 
   let userContent;

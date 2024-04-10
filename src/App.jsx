@@ -72,7 +72,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/offer-page/offerId" element={<OfferPage />} />
-        <Route path="/users/userId" element={<OtherUser />} />
+        <Route path="/users/:userId" element={<OtherUser />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
