@@ -6,7 +6,7 @@ import "./OwnProfilePage.css";
 
 export const OwnProfilePage = () => {
   const { user } = useContext(AuthContext);
-  const [userData, setuserData] = useState();
+  const [userData, setUserData] = useState();
   const [offers, setOffers] = useState([]);
   const [newOffer, setNewOffer] = useState({
     title: "",
@@ -22,7 +22,7 @@ export const OwnProfilePage = () => {
         }
 
         if (user) {
-          setuserData(user);
+          setUserData(user);
         } else {
           const userProfileResponse = await axios.get(
             `${API_URL}/protected/user`,
@@ -30,18 +30,15 @@ export const OwnProfilePage = () => {
               headers: { authorization: `Bearer ${token}` },
             }
           );
-          setuserData(userProfileResponse.data);
+          setUserData(userProfileResponse.data);
         }
 
+        // Fetch all offers regardless of the user's ID
         const offersResponse = await axios.get(`${API_URL}/api/offers`, {
           headers: { authorization: `Bearer ${token}` },
         });
 
-        const userOffers = offersResponse.data.offers.filter(
-          (offer) => offer.host === user?._id
-        );
-
-        setOffers(userOffers);
+        setOffers(offersResponse.data.offers);
       } catch (err) {
         console.log(err);
       }
@@ -65,6 +62,12 @@ export const OwnProfilePage = () => {
     } catch (err) {
       console.error("Failed to add offer", err);
     }
+  };
+
+  const handleEditOffer = async (offerId) => {
+    const editedOffer = offers.find((offer) => offer._id === offerId);
+    if (!editedOffer) return;
+    // Logic for editing offer
   };
 
   const handleDelete = async (offerId) => {
@@ -123,9 +126,10 @@ export const OwnProfilePage = () => {
           <div className="offer-card" key={offer._id}>
             <h4 key={offer.id}>{offer.title}</h4>
             <p>{offer.description}</p>
+            <p>{offer.host._id}</p>
             <div className="buttons-div">
               <button onClick={() => handleDelete(offer._id)}>Delete</button>
-              <button>EDIT</button>
+              <button onClick={() => handleEditOffer(offer._id)}>EDIT</button>
             </div>
           </div>
         ))}
