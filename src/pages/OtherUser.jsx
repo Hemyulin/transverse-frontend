@@ -21,15 +21,15 @@ const [isOwnProfile, setIsOwnProfile] = useState(false);
     return <div>Loading...</div>;
   }
 
-  let profileContent;
+  let loggedIn;
   if (isOwnProfile) {
-profileContent = (
+loggedIn = (
     <p>
         Bio: {userData.bio}
     </p>
 );
 } else {
-    profileContent = <p>{userData.name} is successfully registered</p>
+    loggedIn = <p>{userData.name} is successfully registered</p>
 }
   return (
     <div className="user-profile">
