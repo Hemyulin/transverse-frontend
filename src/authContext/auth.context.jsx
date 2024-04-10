@@ -29,7 +29,9 @@ function AuthProviderWrapper(props) {
     axios
       .post(`${API_URL}/auth/login`, { email, password })
       .then((response) => {
+        console.log(response.data);
         const token = response.data.token; // Assuming the response contains the token
+        console.log(token, "yoyo");
         if (!token) {
           console.error("Token not found in response");
         } else {
@@ -57,11 +59,13 @@ function AuthProviderWrapper(props) {
   };
 
   const authenticateUser = () => {
+    console.log("aithenticate");
     // Get the stored token from the localStorage
     const storedToken = localStorage.getItem("token");
 
     // If the token exists in the localStorage
     if (storedToken) {
+      console.log("yoyoyo");
       // We must send the JWT token in the request's "Authorization" Headers
       axios
         .get(`${API_URL}/auth/verify`, {
