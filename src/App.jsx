@@ -14,6 +14,7 @@ import { SignInPage } from "./pages/SignInPage";
 import LogoutPage from "./pages/SignOutPage";
 import AboutPage from "./pages/AboutPage";
 import OfferPage from "./pages/OfferPage";
+import OtherUser from "./pages/OtherUser";
 
 //states
 import LoggedState from "./components/Logged_in_state";
@@ -70,7 +71,8 @@ function App() {
         ></Route>
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        {/* <Route path="/offer-page" element={<OfferPage />} /> */}
+        <Route path="/offer-page/offerId" element={<OfferPage />} />
+        <Route path="/protected/users/:userId" element={<OtherUser />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
