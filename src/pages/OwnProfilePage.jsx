@@ -1,11 +1,11 @@
-import { useParams } from "react-router-dom";
-import "./OwnProfilePage.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../authContext/auth.context";
 import axios from "axios";
 import { API_URL } from "../config";
+import "./OwnProfilePage.css";
 
 export const OwnProfilePage = () => {
-  const { userId } = useParams();
+  const { user } = useContext(AuthContext);
   const [userData, setuserData] = useState();
   const [offers, setOffers] = useState([]);
 
@@ -17,29 +17,34 @@ export const OwnProfilePage = () => {
           throw new Error("JWT token not found!");
         }
 
-        const userProfileResponse = await axios.get(
-          `${API_URL}/protected/user/${userId}`,
-          {
-            headers: { authorization: `Bearer ${token}` },
-          }
+        if (user) {
+          setuserData(user);
+        } else {
+          const userProfileResponse = await axios.get(
+            `${API_URL}/protected/user`,
+            {
+              headers: { authorization: `Bearer ${token}` },
+            }
+          );
+
+          setuserData(userProfileResponse.data);
+        }
+
+        const offersResponse = await axios.get(`${API_URL}/api/offers`, {
+          headers: { authorization: `Bearer ${token}` },
+        });
+
+        const userOffers = offersResponse.data.offers.filter(
+          (offer) => offer.host === user?._id
         );
 
-        setuserData(userProfileResponse.data);
-
-        const offersResponse = await axios.get(`${API_URL}/api/offers`);
-
-        console.log(offersResponse.data.offers);
-
-        if (offersResponse.data.offers.host === userId) {
-          console.log("YES");
-        }
-        setOffers(offersResponse.data.offers);
+        setOffers(userOffers);
       } catch (err) {
         console.log(err);
       }
     };
     fetchData();
-  }, [userId]);
+  }, [user]);
 
   return (
     <div className="own-profile-page">

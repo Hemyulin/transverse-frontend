@@ -27,7 +27,7 @@ function UserHomePage() {
   return (
     <div>
       <h1>Welcome User</h1>
-      <Link to="/profile/:userId">
+      <Link to="/profile">
         <button>Your Profile</button>
       </Link>
       <button onClick={handleLogout}>Logout</button>
