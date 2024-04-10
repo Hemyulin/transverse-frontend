@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "./SignInPage.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../authContext/auth.context.jsx";
 import { API_URL } from "../config";
 
 export const SignInPage = () => {
@@ -9,6 +10,7 @@ export const SignInPage = () => {
     email: "",
     password: "",
   });
+  const { authenticateUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -31,6 +33,9 @@ export const SignInPage = () => {
       const response = await axios.post(`${API_URL}/auth/login`, formData);
       const token = response.data.token;
       localStorage.setItem("jwtToken", token);
+      await authenticateUser();
+      console.log("should nav to home now");
+
       navigate("/user-home");
     } catch (err) {
       console.log("There has been an error logging in", err.response);
@@ -66,7 +71,7 @@ export const SignInPage = () => {
         </div>
       </form>
       <p onClick={redirectToRegisterPage}>
-        Don't have an account? Register here!
+        Don't have an account? Register <button>here!</button>
       </p>
     </div>
   );

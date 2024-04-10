@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../authContext/auth.context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function UserHomePage() {
   const [userData, setUserData] = useState(null);
@@ -27,6 +27,9 @@ function UserHomePage() {
   return (
     <div>
       <h1>Welcome User</h1>
+      <Link to="/profile/:userId">
+        <button>Your Profile</button>
+      </Link>
       <button onClick={handleLogout}>Logout</button>
     </div>
   );

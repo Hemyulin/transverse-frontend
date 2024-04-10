@@ -6,15 +6,22 @@ import { AuthContext } from "../authContext/auth.context";
 
 function Navbar() {
   const { isLoggedIn } = useContext(AuthContext);
+  console.log("Is Logged In NAVBAR:", isLoggedIn);
   return (
     <div className="navbar">
-      <Link to="/showcase">
-        <img src={TransverseLogo} alt="logo" className="navbar-logo" />
-      </Link>
+      {!isLoggedIn ? (
+        <Link to="/showcase">
+          <img src={TransverseLogo} alt="logo" className="navbar-logo" />
+        </Link>
+      ) : (
+        <Link to="/user-home">
+          <img src={TransverseLogo} alt="logo" className="navbar-logo" />
+        </Link>
+      )}
       <Searchbar />
       {isLoggedIn ? (
         <div className="logout-profile">
-          <Link to="/logout">Logout</Link>
+          <Link to="/sign-out-page">Logout</Link>
           <Link to="/profile">Profile</Link>
         </div>
       ) : (
