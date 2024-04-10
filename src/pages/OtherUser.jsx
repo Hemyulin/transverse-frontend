@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-
-const API_URL = 
-import.meta.env.VITE_SERVER_URL || 'http://localhost:5005'
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { API_URL } from "../config";
 
 const UserProfilePage = ({ loggedInUserId }) => {
   const { userId } = useParams();
@@ -15,17 +13,17 @@ const UserProfilePage = ({ loggedInUserId }) => {
       try {
         const response = await fetch(`${API_URL}/protected/user/${userId}`, {
           headers: {
-            authorization: `Bearer ${localStorage.getItem('accessToken')}`
-          }
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
         });
         if (!response.ok) {
-          throw new Error('could not fetch user data');
+          throw new Error("could not fetch user data");
         }
         const userData = await response.json();
         setUserData(userData);
         setIsLoading(false);
       } catch (error) {
-        console.error('coud not fetch user data:', error);
+        console.error("coud not fetch user data:", error);
         setIsError(true);
         setIsLoading(false);
       }
@@ -71,9 +69,8 @@ const UserProfilePage = ({ loggedInUserId }) => {
   } else {
     userContent = <div>User does not exist</div>;
   }
-  
+
   return userContent;
-  
 };
 
 export default UserProfilePage;

@@ -2,13 +2,12 @@ import { useParams } from "react-router-dom";
 import "./OwnProfilePage.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { API_URL } from "../config";
 
 export const OwnProfilePage = () => {
   const { userId } = useParams();
   const [userData, setuserData] = useState();
   const [offers, setOffers] = useState([]);
-
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5005";
 
   useEffect(() => {
     const fetchData = async () => {

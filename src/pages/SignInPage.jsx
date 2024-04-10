@@ -2,8 +2,7 @@ import { useState } from "react";
 import "./SignInPage.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5005";
+import { API_URL } from "../config";
 
 export const SignInPage = () => {
   const [formData, setFormData] = useState({
