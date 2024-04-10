@@ -5,53 +5,67 @@ import axios from "axios";
 
 export const OwnProfilePage = () => {
   const { userId } = useParams();
-  const [data, setData] = useState();
+  const [userData, setuserData] = useState();
+  const [offers, setOffers] = useState([]);
 
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5005";
 
   useEffect(() => {
-    const getUserProfile = async () => {
+    const fetchData = async () => {
       try {
         const token = localStorage.getItem("jwtToken");
         if (!token) {
           throw new Error("JWT token not found!");
         }
 
-        const response = await axios.get(
+        const userProfileResponse = await axios.get(
           `${API_URL}/protected/user/${userId}`,
           {
             headers: { authorization: `Bearer ${token}` },
           }
         );
 
-        console.log("ROFL");
+        setuserData(userProfileResponse.data);
 
-        setData(response.data);
+        const offersResponse = await axios.get(`${API_URL}/api/offers`);
+
+        console.log(offersResponse.data);
+        setOffers(offersResponse.data.offers);
       } catch (err) {
         console.log(err);
       }
     };
-    getUserProfile();
+    fetchData();
   }, [userId]);
-
-  console.log("TEST", data);
 
   return (
     <div className="own-profile-page">
-      <div className="profile-details-card">
-        <div className="img-and-name">
-          <div className="profile-img-div">IMG</div>
-          <h4>{data ? data.userName : "Loading..."}</h4>
+      <div className="top-info-div">
+        <div className="profile-details-card">
+          <div className="img-and-name">
+            <div className="profile-img-div">IMG</div>
+            <h4>{userData ? userData.userName : "Loading..."}</h4>
+          </div>
+          <div className="profile-info">
+            <ul>
+              <li>{userData ? userData.email : "Loading..."}</li>
+              <li>Hobbies</li>
+              <li>Languages</li>
+            </ul>
+          </div>
         </div>
-        <div className="profile-info">
-          <ul>
-            <li>{data ? data.email : "Loading..."}</li>
-            <li>Hobbies</li>
-            <li>Languages</li>
-          </ul>
-        </div>
+        <h2 className="profile-details">dfsghmj</h2>
       </div>
-      <div>dfsghmj</div>
+      <div className="offers-div">
+        {/* Map through the offers array and render each offer */}
+        {offers.map((offer) => (
+          <div className="offer-card">
+            <h4 key={offer.id}>{offer.title}</h4>
+            <p>{offer.description}</p>
+          </div>
+        ))}
+      </div>
+      <div>MORE INFO DIV</div>
     </div>
   );
 };

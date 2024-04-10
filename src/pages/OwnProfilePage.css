@@ -1,15 +1,15 @@
 .own-profile-page {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   padding: 0 20%;
+  padding-bottom: 12em;
 }
 
 .profile-details-card {
   border: 1px solid white;
   border-radius: 1em;
   padding: 1em;
-  margin-top: 1em;
   display: flex;
 }
 
@@ -28,4 +28,20 @@ ul {
 
 li {
   list-style-type: none;
+}
+
+.profile-details {
+}
+
+.top-info-div {
+  margin-top: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.offer-card {
+  background-color: peachpuff;
+  color: brown;
+  border-radius: 12px;
 }
