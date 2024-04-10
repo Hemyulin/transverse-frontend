@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-const API_URL = 'https://transverse.adaptable.app/' 
+const API_URL = 
+import.meta.env.VITE_SERVER_URL || 'http://localhost:5005'
 
 const UserProfilePage = ({ loggedInUserId }) => {
   const { userId } = useParams();
@@ -14,7 +15,7 @@ const UserProfilePage = ({ loggedInUserId }) => {
       try {
         const response = await fetch(`${API_URL}/protected/user/${userId}`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`
           }
         });
         if (!response.ok) {
