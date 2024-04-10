@@ -8,6 +8,10 @@ export const OwnProfilePage = () => {
   const { user } = useContext(AuthContext);
   const [userData, setuserData] = useState();
   const [offers, setOffers] = useState([]);
+  const [newOffer, setNewOffer] = useState({
+    title: "",
+    description: "",
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,6 +49,24 @@ export const OwnProfilePage = () => {
     fetchData();
   }, [user]);
 
+  const handleAddOffer = async (e) => {
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem("jwtToken");
+      const response = await axios.post(`${API_URL}/api/offers`, newOffer, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setOffers([...offers, response.data]);
+      // Clear input fields after adding the offer
+      setNewOffer({
+        title: "",
+        description: "",
+      });
+    } catch (err) {
+      console.error("Failed to add offer", err);
+    }
+  };
+
   const handleDelete = async (offerId) => {
     try {
       const token = localStorage.getItem("jwtToken");
@@ -75,7 +97,26 @@ export const OwnProfilePage = () => {
             </ul>
           </div>
         </div>
-        <h2 className="profile-details">dfsghmj</h2>
+        <div className="profile-details">
+          <form onSubmit={handleAddOffer}>
+            <input
+              type="text"
+              placeholder="Title"
+              value={newOffer.title}
+              onChange={(e) =>
+                setNewOffer({ ...newOffer, title: e.target.value })
+              }
+            />
+            <textarea
+              placeholder="Description"
+              value={newOffer.description}
+              onChange={(e) =>
+                setNewOffer({ ...newOffer, description: e.target.value })
+              }
+            ></textarea>
+            <button type="submit">Add offer</button>
+          </form>
+        </div>
       </div>
       <div className="offers-div">
         {offers.map((offer) => (
