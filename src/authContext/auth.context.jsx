@@ -24,17 +24,31 @@ function AuthProviderWrapper(props) {
   };
 
   const loginUser = (email, password) => {
+    console.log("Attempting to log in", { email, password });
     setAuthError(null);
     axios
       .post(`${API_URL}/auth/login`, { email, password })
       .then((response) => {
         const token = response.data.token; // Assuming the response contains the token
-        storeToken(token);
-        authenticateUser(); // Now that the token is stored, authenticate the user
+        if (!token) {
+          console.error("Token not found in response");
+        } else {
+          storeToken(token);
+          console.log("Stored token:", token);
+          authenticateUser();
+        } // Now that the token is stored, authenticate the user
       })
       .catch((error) => {
-        console.error("Login error:", error.response.data.message);
+        console.error(
+          "Login error:",
+          error.response ? error.response.data.message : error.message
+        );
         // Handle login error
+        setAuthError(
+          error.response
+            ? error.response.data.message
+            : "An error occurred during login."
+        );
       });
   };
 
@@ -77,6 +91,7 @@ function AuthProviderWrapper(props) {
       setIsLoggedIn(false);
       setIsLoading(false);
       setUser(null);
+      console.log(isLoggedIn, "boo chakachakax");
     }
   };
 
@@ -94,6 +109,7 @@ function AuthProviderWrapper(props) {
     // Run the function after the initial render,
     // after the components in the App render for the first time.
     authenticateUser();
+    console.log(isLoggedIn, "isLoggedIn state updated");
   }, []);
 
   return (
