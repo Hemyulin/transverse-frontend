@@ -1,59 +1,61 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom"; // react router have?
-import Footer from "../components/Footer";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 import { API_URL } from "../config";
+import Footer from "../components/Footer";
+import "./OfferPage.css";
 
 const OfferPage = () => {
-  const { offerId } = useParams();
+  const { id } = useParams();
   const [offerDetails, setOfferDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    const getSingleOffer = async () => {
+    const fetchOfferDetails = async () => {
+      setLoading(true);
+      setError("");
       try {
-        const res = await fetch(`{API_URL}/api/offers/${offerId}`);
-        const parsed = await res.json();
-        setOfferDetails(parsed);
+        const response = await axios.get(`${API_URL}/api/offers/${id}`);
+        setOfferDetails(response.data);
       } catch (error) {
-        console.error("could not fetch the offer", error);
+        console.error("Could not fetch the offer:", error);
+        setError("Failed to fetch offer details. Please try again later.");
+      } finally {
+        setLoading(false);
       }
     };
-    getSingleOffer();
-  }, [offerId]);
-  if (!offerDetails) {
+    fetchOfferDetails();
+  }, [id]);
+
+  if (loading) {
     return <div>Loading...</div>;
   }
 
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (!offerDetails) {
+    return <div>Offer not found.</div>;
+  }
+
   return (
-    <div>
+    <div className="offer-page">
       <div className="offer-images">
-        {offerDetails.images.map((imageUrl, index) => (
-          <img key={index} src={imageUrl} alt={`Image ${index + 1}`} />
+        {offerDetails.images?.map((imageUrl, index) => (
+          <img key={index} src={imageUrl} alt={`Offer Image ${index + 1}`} />
         ))}
       </div>
-      <div className="offer-accommodation">
+      <div className="offer-details">
         <h2>{offerDetails.title}</h2>
         <p>{offerDetails.description}</p>
-      </div>
-      {/* <div className="offer-location">
-                <h2>Location</h2>
-                <iframe
-                    title="Offer Location"
-                    width="600"
-                    height="450"
-                    frameBorder="0"
-                    style={{ border: 0 }}
-                    src={`https://www.google.com/maps/embed/v1/place?q=${offerDetails.location.latitude},${offerDetails.location.longitude}&key=API_KEY`} //check
-                    allowFullScreen
-                ></iframe>
-            </div> */}
-      {/* Host Reviews */}
-      <div className="offer-reviews">
-        <h2>Host Reviews</h2>
-        {offerDetails.comments.map((review) => (
-          <div key={review.id}>
-            <p>Rating: {review.rating}</p>
+
+        {offerDetails.host && (
+          <div>
+            <h3>Hosted by: {offerDetails.host.name}</h3>
           </div>
-        ))}
+        )}
       </div>
       <Footer />
     </div>
