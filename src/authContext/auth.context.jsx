@@ -15,7 +15,24 @@ function AuthProviderWrapper(props) {
   };
 
   const removeToken = () => {
+    console.log("Removing token from storage");
     localStorage.removeItem("jwtToken");
+  };
+
+  const refreshToken = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/auth/refresh`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
+        },
+      });
+      const { token } = response.data;
+      storeToken(token);
+      await authenticateUser();
+    } catch (error) {
+      console.log("Error refreshing token:", error);
+      logOutUser();
+    }
   };
 
   // Authenticate User
@@ -37,13 +54,16 @@ function AuthProviderWrapper(props) {
       setIsLoading(false);
       setUser(response.data);
     } catch (error) {
-      setAuthError(error.response?.data.message || "Failed to authenticate");
-      setIsLoggedIn(false);
-      setIsLoading(false);
-      setUser(null);
+      if (error.response?.status === 401) {
+        await refreshToken();
+      } else {
+        setAuthError(error.response?.data.message || "Failed to authenticate");
+        setIsLoggedIn(false);
+        setIsLoading(false);
+        setUser(null);
+      }
     }
   };
-
   // Login User
   const loginUser = async (email, password) => {
     setAuthError(null);
@@ -73,12 +93,20 @@ function AuthProviderWrapper(props) {
   const registerUser = async (userName, email, password) => {
     setIsLoading(true);
     try {
-      await axios.post(`${API_URL}/auth/registration`, {
+      const response = await axios.post(`${API_URL}/auth/registration`, {
         userName,
         email,
         password,
       });
-      await loginUser(email, password); //log in after registration
+      const { token } = response.data;
+      if (token) {
+        storeToken(token);
+        console.log("reg and token stored");
+        await authenticateUser();
+      } else {
+        setAuthError("no token recieved");
+      }
+      // await loginUser(email, password); //log in after registration
     } catch (error) {
       setAuthError(error.response?.data.message || "Registration failed");
     } finally {

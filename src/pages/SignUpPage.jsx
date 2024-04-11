@@ -31,8 +31,14 @@ function SignUpPage() {
         `${API_URL}/auth/registration`,
         formData
       );
-      console.log(response.data);
-      navigate("/user-home");
+      const { token } = response.data;
+      if (token) {
+        localStorage.setItem("jwtToken", token);
+        console.log(response.data, "this is the token and user object");
+        navigate("/user-home");
+      } else {
+        console.log("Token not received");
+      }
     } catch (error) {
       console.log("nope", error.response);
     }
