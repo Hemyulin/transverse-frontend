@@ -39,6 +39,22 @@ body {
   display: flex;
   flex-direction: column;
 }
+.nav-link {
+  text-decoration: none;
+  color: #4f2e12;
+  margin: 0 10px;
+  font-weight: bold;
+}
+
+.nav-link:hover {
+  color: #365210;
+}
+
+.logout-profile,
+.login-register {
+  display: flex;
+  gap: 20px;
+}
 
 .footer {
   position: fixed;
@@ -54,7 +70,11 @@ body {
   height: 80px;
   margin-bottom: 1px;
 }
-
+.footer a {
+  color: #4f2e12;
+  text-decoration: none;
+  margin: 0 10px;
+}
 .registration-form {
   display: flex;
   flex-direction: column;

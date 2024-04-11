@@ -28,15 +28,14 @@ function UserHomePage() {
 
   return (
     <div className="user-home">
-      {}
       <h1>Welcome to Transverse</h1>
 
-      <Link to="/profile">
-        <button>Your Profile</button>
-      </Link>
       <div className="carousel">
         <ImageCarousel />
       </div>
+      <Link to="/profile">
+        <button>Your Profile</button>
+      </Link>
       <button className="logout-btn" onClick={handleLogout}>
         Logout
       </button>
