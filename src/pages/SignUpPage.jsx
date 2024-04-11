@@ -8,6 +8,8 @@ function SignUpPage() {
     userName: "",
     email: "",
     password: "",
+    spokenLanguages: [],
+    hostedLanguages: [],
   });
 
   const navigate = useNavigate();
@@ -18,10 +20,17 @@ function SignUpPage() {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+    if (Array.isArray(formData[name])){
+      setFormData({
+        ...formData,
+        [name]: [...formData[name],value],
+    });
+  }else {
     setFormData({
       ...formData,
-      [name]: value,
+      [name]:value,
     });
+  }
   };
 
   const handleSubmit = async (event) => {
@@ -77,7 +86,27 @@ function SignUpPage() {
             value={formData.password}
             onChange={handleChange}
           />
+          </label>
+          <label>
+            Spoken Languages:
+            <input
+            type="text"
+            name="spokenLanguages"
+            value={formData.spokenLanguages}
+            onChange={handleChange}
+            placeholder="SPOKEN LANGUAGES"
+          />
         </label>
+        <label>
+          Hosted Languages:
+          <input
+          type="text"
+          name="hostedLanguages"
+          value={formData.hostedLanguages}
+          onChange={handleChange}
+          placeholder="HOSTED LANGUAGES"
+          />
+          </label>
         <button type="submit" className="sub-btn">
           Sign up
         </button>

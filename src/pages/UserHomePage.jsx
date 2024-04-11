@@ -7,6 +7,7 @@ function UserHomePage() {
   const [userData, setUserData] = useState(null);
   const { logOutUser } = useContext(AuthContext);
   const navigate = useNavigate();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -26,6 +27,7 @@ function UserHomePage() {
 
   return (
     <div>
+      {}
       <h1>Welcome User</h1>
       <Link to="/profile">
         <button>Your Profile</button>
