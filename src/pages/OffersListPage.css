@@ -6,6 +6,7 @@
   transition: all 0.3s ease;
   cursor: pointer;
   transition: transform 0.2s;
+  width: 800;
 }
 
 .offer-card {
@@ -23,7 +24,7 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 .offer-panel img {
-  max-width: 80%;
+  max-width: 60%;
   height: auto;
   border-radius: 4px;
   margin-bottom: 20px;

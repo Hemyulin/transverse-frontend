@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 
-const images = ["/images/Florance.jpeg", "/images/IrishPub.png"];
+const images = [
+  "/images/Florance.jpeg",
+  "/images/IrishPub.png",
+  "/images/garden.jpeg",
+  "/images/roof.jpeg",
+  "/images/seated.jpeg",
+  "/images/street.jpeg",
+  "/images/wine.png",
+];
 
 function ImageCarousel() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);

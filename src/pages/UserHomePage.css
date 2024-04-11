@@ -1,0 +1,10 @@
+.user-home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.logout-btn {
+  width: 120px;
+}

@@ -35,7 +35,7 @@ export const OffersListPage = () => {
   };
 
   return (
-    <div>
+    <div className="offers-list">
       <h2>Offers List</h2>
       {offers.map((offer) => (
         <div

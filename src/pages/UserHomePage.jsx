@@ -2,7 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../authContext/auth.context";
 import { useNavigate, Link } from "react-router-dom";
-
+import "./UserHomePage.css";
+import ImageCarousel from "../components/Carousel";
 function UserHomePage() {
   const [userData, setUserData] = useState(null);
   const { logOutUser } = useContext(AuthContext);
@@ -26,13 +27,19 @@ function UserHomePage() {
   };
 
   return (
-    <div>
+    <div className="user-home">
       {}
-      <h1>Welcome User</h1>
+      <h1>Welcome to Transverse</h1>
+
       <Link to="/profile">
         <button>Your Profile</button>
       </Link>
-      <button onClick={handleLogout}>Logout</button>
+      <div className="carousel">
+        <ImageCarousel />
+      </div>
+      <button className="logout-btn" onClick={handleLogout}>
+        Logout
+      </button>
     </div>
   );
 }
