@@ -17,38 +17,46 @@ export const OwnProfilePage = () => {
 
   const navigate = useNavigate();
 
+  const fetchUserProfile = async () => {
+    const token = localStorage.getItem("jwtToken");
+    if (!token) {
+      console.log("JWT token not found!");
+      navigate("/sign-in");
+      return;
+    }
+    const userProfileResponse = await axios.get(`${API_URL}/protected/user`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setUserData(userProfileResponse.data);
+  };
+
+  const fetchOffers = async () => {
+    const token = localStorage.getItem("jwtToken");
+    const offersResponse = await axios.get(`${API_URL}/api/offers`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setOffers(offersResponse.data.offers);
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = localStorage.getItem("jwtToken");
-        if (!token) {
-          throw new Error("JWT token not found!");
-        }
-
-        if (user) {
-          setUserData(user);
-        } else {
-          const userProfileResponse = await axios.get(
-            `${API_URL}/protected/user`,
-            {
-              headers: { authorization: `Bearer ${token}` },
-            }
-          );
-          setUserData(userProfileResponse.data);
-        }
-
-        // Fetch all offers regardless of the user's ID
-        const offersResponse = await axios.get(`${API_URL}/api/offers`, {
-          headers: { authorization: `Bearer ${token}` },
-        });
-
-        setOffers(offersResponse.data.offers);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
+    fetchUserProfile();
+    fetchOffers();
   }, [user]);
+
+  const handleAddOffer = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("jwtToken");
+    try {
+      const response = await axios.post(`${API_URL}/api/offers`, newOffer, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setNewOffer({ title: "", description: "" });
+      await fetchOffers();
+      await fetchUserProfile();
+    } catch (err) {
+      console.error("Failed to add offer", err);
+    }
+  };
 
   const handleEditUser = async (e) => {
     e.preventDefault();
@@ -87,33 +95,6 @@ export const OwnProfilePage = () => {
     }
   };
 
-  const handleAddOffer = async (e) => {
-    e.preventDefault();
-    try {
-      const token = localStorage.getItem("jwtToken");
-      const response = await axios.post(`${API_URL}/api/offers`, newOffer, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      // Fetch user data again to ensure it's up to date
-      console.log("Fetching user data...");
-      const userProfileResponse = await axios.get(`${API_URL}/protected/user`, {
-        headers: { authorization: `Bearer ${token}` },
-      });
-      console.log("User data fetched:", userProfileResponse.data);
-
-      setUserData(userProfileResponse.data);
-
-      setOffers([...offers, response.data]);
-      setNewOffer({
-        title: "",
-        description: "",
-      });
-    } catch (err) {
-      console.error("Failed to add offer", err);
-    }
-  };
-
   const handleEditOffer = async (offerId, updatedOffer) => {
     try {
       const token = localStorage.getItem("jwtToken");
@@ -124,7 +105,6 @@ export const OwnProfilePage = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      // Update the offer in the local state with the updated data
       const updatedOffers = offers.map((offer) =>
         offer._id === offerId ? response.data : offer
       );
@@ -140,7 +120,6 @@ export const OwnProfilePage = () => {
       await axios.delete(`${API_URL}/api/offers/${offerId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      // Filter out the deleted offer from the local state to update the UI
       const updatedOffers = offers.filter((offer) => offer._id !== offerId);
       setOffers(updatedOffers);
     } catch (err) {
