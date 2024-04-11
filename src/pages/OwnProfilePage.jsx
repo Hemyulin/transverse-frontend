@@ -181,28 +181,28 @@ export const OwnProfilePage = () => {
         {offers &&
           offers.map((offer) => (
             <div className="offer-card" key={offer._id}>
-              {/* Title and description */}
               <h4>{offer.title}</h4>
               <p>{offer.description}</p>
-
-              {/* Editable fields */}
-              <input
-                type="text"
-                value={offer.title}
-                onChange={(e) => {
-                  const updatedTitle = e.target.value;
-                  handleEditOffer(offer._id, { title: updatedTitle });
-                }}
-              />
-              <textarea
-                value={offer.description}
-                onChange={(e) => {
-                  const updatedDescription = e.target.value;
-                  handleEditOffer(offer._id, {
-                    description: updatedDescription,
-                  });
-                }}
-              ></textarea>
+              <div className="offer-card-inputs">
+                <input
+                  type="text"
+                  value={offer.title}
+                  placeholder="Title"
+                  onChange={(e) => {
+                    const updatedTitle = e.target.value;
+                    handleEditOffer(offer._id, { title: updatedTitle });
+                  }}
+                />
+                <textarea
+                  value={offer.description}
+                  onChange={(e) => {
+                    const updatedDescription = e.target.value;
+                    handleEditOffer(offer._id, {
+                      description: updatedDescription,
+                    });
+                  }}
+                ></textarea>
+              </div>
               <p>{offer.host?._id}</p>
               <p>{offer.host?.userName}</p>
               <p>{offer.host?.email}</p>
