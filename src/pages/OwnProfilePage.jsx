@@ -12,10 +12,25 @@ export const OwnProfilePage = () => {
   const [newOffer, setNewOffer] = useState({
     title: "",
     description: "",
+    location: "",
+
+    availableFrom: "",
+    availableUntil: "",
+    utilities: [],
   });
   const [newName, setNewName] = useState("");
 
   const navigate = useNavigate();
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
   const fetchUserProfile = async () => {
     const token = localStorage.getItem("jwtToken");
     if (!token) {
@@ -48,16 +63,19 @@ export const OwnProfilePage = () => {
     const token = localStorage.getItem("jwtToken");
     const offerWithHost = { ...newOffer, host: user._id };
     try {
-      const response = await axios.post(
-        `${API_URL}/api/offers`,
-        offerWithHost,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      await axios.post(`${API_URL}/api/offers`, offerWithHost, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       await fetchOffers();
-      await fetchUserProfile();
-      setNewOffer({ title: "", description: "" });
+      setNewOffer({
+        title: "",
+        description: "",
+        location: "",
+
+        availableFrom: "",
+        availableUntil: "",
+        utilities: [],
+      });
     } catch (err) {
       console.error("Failed to add offer", err);
     }
@@ -184,6 +202,55 @@ export const OwnProfilePage = () => {
                 setNewOffer({ ...newOffer, description: e.target.value })
               }
             ></textarea>
+
+            <input
+              type="date"
+              value={newOffer.availableFrom}
+              onChange={(e) =>
+                setNewOffer({ ...newOffer, availableFrom: e.target.value })
+              }
+            />
+            <input
+              type="date"
+              value={newOffer.availableUntil}
+              onChange={(e) =>
+                setNewOffer({ ...newOffer, availableUntil: e.target.value })
+              }
+            />
+            <div>
+              <label>
+                <input
+                  type="checkbox"
+                  value="WiFi"
+                  onChange={(e) => {
+                    const newUtilities = e.target.checked
+                      ? [...newOffer.utilities, e.target.value]
+                      : newOffer.utilities.filter(
+                          (utility) => utility !== e.target.value
+                        );
+                    setNewOffer({ ...newOffer, utilities: newUtilities });
+                  }}
+                  checked={newOffer.utilities.includes("WiFi")}
+                />
+                WiFi
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  value="Parking"
+                  onChange={(e) => {
+                    const newUtilities = e.target.checked
+                      ? [...newOffer.utilities, e.target.value]
+                      : newOffer.utilities.filter(
+                          (utility) => utility !== e.target.value
+                        );
+                    setNewOffer({ ...newOffer, utilities: newUtilities });
+                  }}
+                  checked={newOffer.utilities.includes("Parking")}
+                />
+                Parking
+              </label>
+            </div>
             <button type="submit">Add offer</button>
           </form>
         </div>
@@ -194,7 +261,9 @@ export const OwnProfilePage = () => {
             <div className="offer-card" key={offer._id}>
               <h4>{offer.title}</h4>
               <p>{offer.description}</p>
-
+              <p>Available From: {formatDate(offer.availableFrom)}</p>
+              <p>Available Until: {formatDate(offer.availableUntil)}</p>
+              <p>Utilities: {offer.utilities.join(", ")}</p>
               <input
                 type="text"
                 value={offer.title}
