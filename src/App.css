@@ -98,3 +98,10 @@ body {
 .banner-logo {
   height: 300px;
 }
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 3%;
+}
