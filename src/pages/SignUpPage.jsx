@@ -20,17 +20,10 @@ function SignUpPage() {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    if (Array.isArray(formData[name])){
       setFormData({
         ...formData,
-        [name]: [...formData[name],value],
+        [name]: value,
     });
-  }else {
-    setFormData({
-      ...formData,
-      [name]:value,
-    });
-  }
   };
 
   const handleSubmit = async (event) => {
