@@ -3,6 +3,7 @@ import { AuthContext } from "../authContext/auth.context";
 import axios from "axios";
 import { API_URL } from "../config";
 import "./OwnProfilePage.css";
+import { useNavigate } from "react-router-dom";
 
 export const OwnProfilePage = () => {
   const { user } = useContext(AuthContext);
@@ -12,6 +13,8 @@ export const OwnProfilePage = () => {
     title: "",
     description: "",
   });
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,6 +48,30 @@ export const OwnProfilePage = () => {
     };
     fetchData();
   }, [user]);
+
+  const handleEditUser = async () => {
+    try {
+      const token = localStorage.getItem("jwtToken");
+      // Implement logic to edit user details and send PUT request
+    } catch (err) {
+      console.error("Failed to edit user", err);
+    }
+  };
+
+  const handleDeleteUser = async () => {
+    try {
+      const token = localStorage.getItem("jwtToken");
+      await axios.delete(`${API_URL}/protected/user`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      console.log("User deleted!");
+      localStorage.removeItem("jwtToken");
+      navigate("/showcase");
+    } catch (err) {
+      console.error("Failed to delete user", err);
+    }
+  };
 
   const handleAddOffer = async (e) => {
     e.preventDefault();
@@ -120,8 +147,8 @@ export const OwnProfilePage = () => {
               <li>{userData ? userData.email : "Loading..."}</li>
               <li>Hobbies</li>
               <li>Languages</li>
-              <button>Delete user</button>
-              <button>Edit user</button>
+              <button onClick={handleDeleteUser}>Delete user</button>
+              <button onClick={handleEditUser}>Edit user</button>
             </ul>
           </div>
         </div>
@@ -147,37 +174,40 @@ export const OwnProfilePage = () => {
         </div>
       </div>
       <div className="offers-div">
-        {offers.map((offer) => (
-          <div className="offer-card" key={offer._id}>
-            {/* Title and description */}
-            <h4>{offer.title}</h4>
-            <p>{offer.description}</p>
+        {offers &&
+          offers.map((offer) => (
+            <div className="offer-card" key={offer._id}>
+              {/* Title and description */}
+              <h4>{offer.title}</h4>
+              <p>{offer.description}</p>
 
-            {/* Editable fields */}
-            <input
-              type="text"
-              value={offer.title}
-              onChange={(e) => {
-                const updatedTitle = e.target.value;
-                handleEditOffer(offer._id, { title: updatedTitle });
-              }}
-            />
-            <textarea
-              value={offer.description}
-              onChange={(e) => {
-                const updatedDescription = e.target.value;
-                handleEditOffer(offer._id, { description: updatedDescription });
-              }}
-            ></textarea>
-            <p>{offer.host._id}</p>
-            <p>{offer.host.userName}</p>
-            <p>{offer.host.email}</p>
-            <div className="buttons-div">
-              <button onClick={() => handleDelete(offer._id)}>Delete</button>
-              <button onClick={() => handleEditOffer(offer._id)}>EDIT</button>
+              {/* Editable fields */}
+              <input
+                type="text"
+                value={offer.title}
+                onChange={(e) => {
+                  const updatedTitle = e.target.value;
+                  handleEditOffer(offer._id, { title: updatedTitle });
+                }}
+              />
+              <textarea
+                value={offer.description}
+                onChange={(e) => {
+                  const updatedDescription = e.target.value;
+                  handleEditOffer(offer._id, {
+                    description: updatedDescription,
+                  });
+                }}
+              ></textarea>
+              <p>{offer.host?._id}</p>
+              <p>{offer.host?.userName}</p>
+              <p>{offer.host?.email}</p>
+              <div className="buttons-div">
+                <button onClick={() => handleDelete(offer._id)}>Delete</button>
+                <button onClick={() => handleEditOffer(offer._id)}>EDIT</button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );
