@@ -53,8 +53,17 @@ export const OwnProfilePage = () => {
       const response = await axios.post(`${API_URL}/api/offers`, newOffer, {
         headers: { Authorization: `Bearer ${token}` },
       });
+
+      // Fetch user data again to ensure it's up to date
+      console.log("Fetching user data...");
+      const userProfileResponse = await axios.get(`${API_URL}/protected/user`, {
+        headers: { authorization: `Bearer ${token}` },
+      });
+      console.log("User data fetched:", userProfileResponse.data);
+
+      setUserData(userProfileResponse.data);
+
       setOffers([...offers, response.data]);
-      // Clear input fields after adding the offer
       setNewOffer({
         title: "",
         description: "",
@@ -111,6 +120,8 @@ export const OwnProfilePage = () => {
               <li>{userData ? userData.email : "Loading..."}</li>
               <li>Hobbies</li>
               <li>Languages</li>
+              <button>Delete user</button>
+              <button>Edit user</button>
             </ul>
           </div>
         </div>
