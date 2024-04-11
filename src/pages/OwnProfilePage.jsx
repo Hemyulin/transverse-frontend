@@ -57,7 +57,7 @@ export const OwnProfilePage = () => {
       );
       await fetchOffers();
       await fetchUserProfile();
-      setNewOffer({ title: "", description: "" }); // Reset newOffer state
+      setNewOffer({ title: "", description: "" });
     } catch (err) {
       console.error("Failed to add offer", err);
     }
