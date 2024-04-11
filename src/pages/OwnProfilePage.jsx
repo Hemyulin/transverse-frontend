@@ -64,10 +64,24 @@ export const OwnProfilePage = () => {
     }
   };
 
-  const handleEditOffer = async (offerId) => {
-    const editedOffer = offers.find((offer) => offer._id === offerId);
-    if (!editedOffer) return;
-    // Logic for editing offer
+  const handleEditOffer = async (offerId, updatedOffer) => {
+    try {
+      const token = localStorage.getItem("jwtToken");
+      const response = await axios.put(
+        `${API_URL}/api/offers/${offerId}`,
+        updatedOffer,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      // Update the offer in the local state with the updated data
+      const updatedOffers = offers.map((offer) =>
+        offer._id === offerId ? response.data : offer
+      );
+      setOffers(updatedOffers);
+    } catch (err) {
+      console.error("Failed to edit offer", err);
+    }
   };
 
   const handleDelete = async (offerId) => {
@@ -124,9 +138,29 @@ export const OwnProfilePage = () => {
       <div className="offers-div">
         {offers.map((offer) => (
           <div className="offer-card" key={offer._id}>
-            <h4 key={offer.id}>{offer.title}</h4>
+            {/* Title and description */}
+            <h4>{offer.title}</h4>
             <p>{offer.description}</p>
+
+            {/* Editable fields */}
+            <input
+              type="text"
+              value={offer.title}
+              onChange={(e) => {
+                const updatedTitle = e.target.value;
+                handleEditOffer(offer._id, { title: updatedTitle });
+              }}
+            />
+            <textarea
+              value={offer.description}
+              onChange={(e) => {
+                const updatedDescription = e.target.value;
+                handleEditOffer(offer._id, { description: updatedDescription });
+              }}
+            ></textarea>
             <p>{offer.host._id}</p>
+            <p>{offer.host.userName}</p>
+            <p>{offer.host.email}</p>
             <div className="buttons-div">
               <button onClick={() => handleDelete(offer._id)}>Delete</button>
               <button onClick={() => handleEditOffer(offer._id)}>EDIT</button>
