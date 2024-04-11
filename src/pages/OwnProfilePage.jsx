@@ -13,7 +13,7 @@ export const OwnProfilePage = () => {
     title: "",
     description: "",
     location: "",
-
+    offerImage: "",
     availableFrom: "",
     availableUntil: "",
     utilities: [],
@@ -71,7 +71,7 @@ export const OwnProfilePage = () => {
         title: "",
         description: "",
         location: "",
-
+        offerImage: "",
         availableFrom: "",
         availableUntil: "",
         utilities: [],
@@ -202,7 +202,18 @@ export const OwnProfilePage = () => {
                 setNewOffer({ ...newOffer, description: e.target.value })
               }
             ></textarea>
-
+            <label>
+              Offer Image URL:
+              <input
+                type="text"
+                name="offerImage"
+                placeholder="Paste your offer image URL here"
+                value={newOffer.offerImage}
+                onChange={(e) =>
+                  setNewOffer({ ...newOffer, offerImage: e.target.value })
+                }
+              />
+            </label>
             <input
               type="date"
               value={newOffer.availableFrom}
@@ -261,6 +272,7 @@ export const OwnProfilePage = () => {
             <div className="offer-card" key={offer._id}>
               <h4>{offer.title}</h4>
               <p>{offer.description}</p>
+              <img src={offer.offerImage}></img>
               <p>Available From: {formatDate(offer.availableFrom)}</p>
               <p>Available Until: {formatDate(offer.availableUntil)}</p>
               <p>Utilities: {offer.utilities.join(", ")}</p>
