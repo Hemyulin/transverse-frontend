@@ -17,31 +17,31 @@ export const OwnProfilePage = () => {
 
   const navigate = useNavigate();
 
-  const fetchUserProfile = async () => {
-    const token = localStorage.getItem("jwtToken");
-    if (!token) {
-      console.log("JWT token not found!");
-      navigate("/sign-in");
-      return;
-    }
-    const userProfileResponse = await axios.get(`${API_URL}/protected/user`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setUserData(userProfileResponse.data);
-  };
-
-  const fetchOffers = async () => {
-    const token = localStorage.getItem("jwtToken");
-    const offersResponse = await axios.get(`${API_URL}/api/offers`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setOffers(offersResponse.data.offers);
-  };
-
   useEffect(() => {
+    const fetchUserProfile = async () => {
+      const token = localStorage.getItem("jwtToken");
+      if (!token) {
+        console.log("JWT token not found!");
+        navigate("/sign-in");
+        return;
+      }
+      const userProfileResponse = await axios.get(`${API_URL}/protected/user`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setUserData(userProfileResponse.data);
+    };
+
+    const fetchOffers = async () => {
+      const token = localStorage.getItem("jwtToken");
+      const offersResponse = await axios.get(`${API_URL}/api/offers`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setOffers(offersResponse.data.offers);
+    };
+
     fetchUserProfile();
     fetchOffers();
-  }, [user]);
+  }, [user, navigate]);
 
   const handleAddOffer = async (e) => {
     e.preventDefault();
@@ -132,7 +132,13 @@ export const OwnProfilePage = () => {
       <div className="top-info-div">
         <div className="profile-details-card">
           <div className="img-and-name">
-            <div className="profile-img-div">IMG</div>
+            <div className="profile-img-div">
+              {userData && userData.profileImage ? (
+                <img src={userData.profileImage} alt="Profile" />
+              ) : (
+                "IMG"
+              )}
+            </div>
             <h4>{userData ? userData.userName : "Loading..."}</h4>
           </div>
           <div className="profile-info">

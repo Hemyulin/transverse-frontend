@@ -15,9 +15,10 @@
 
 .profile-img-div {
   background-color: wheat;
-  height: 10em;
-  width: 10em;
+  height: 100px;
+  width: 100px;
   border-radius: 100%;
+  object-fit: cover;
 }
 
 ul {
