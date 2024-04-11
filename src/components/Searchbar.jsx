@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-// import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./Searchbar.css";
 
 function Searchbar() {
   const [query, setQuery] = useState("");
-
-  const handleChange = (e) => {
-    setQuery(e.target.value);
+  const navigate = useNavigate();
+  // const handleChange = (e) => {
+  //   setQuery(e.target.value);
+  // };
+  const handleNavigate = () => {
+    navigate("/offers-list-page");
   };
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -15,9 +18,7 @@ function Searchbar() {
         `http://localhost:5005/search?q=${query}`
       );
       console.log(response.data);
-    } catch {
-      console.error("error", error);
-    }
+    } catch {}
   };
   return (
     <form onSubmit={handleSearch} className="searchbar-form">
@@ -25,10 +26,10 @@ function Searchbar() {
         type="text"
         className="search-field"
         placeholder="Search "
-        value={query}
-        onChange={handleChange}
+        // value={query}
+        // onChange={handleChange}
       />
-      <button type="submit" className="search-btn">
+      <button type="submit" className="search-btn" onClick={handleNavigate}>
         <img src="/images/search_icon.png" className="search_icon" />
       </button>
     </form>
