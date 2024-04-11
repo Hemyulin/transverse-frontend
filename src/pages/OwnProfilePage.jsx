@@ -13,6 +13,7 @@ export const OwnProfilePage = () => {
     title: "",
     description: "",
   });
+  const [newName, setNewName] = useState("");
 
   const navigate = useNavigate();
 
@@ -49,15 +50,26 @@ export const OwnProfilePage = () => {
     fetchData();
   }, [user]);
 
-  const handleEditUser = async () => {
+  const handleEditUser = async (e) => {
+    e.preventDefault();
     try {
       const token = localStorage.getItem("jwtToken");
-      // Implement logic to edit user details and send PUT request
+      const response = await axios.put(
+        `${API_URL}/protected/user-update`,
+        { userName: newName },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      console.log("User name updated!", response.data);
+      setUserData(response.data.updatedUser);
+      alert("Name updated successfully!");
     } catch (err) {
-      console.error("Failed to edit user", err);
+      console.error("Failed to update user name", err);
+      alert("Failed to update name");
     }
   };
-
   const handleDeleteUser = async () => {
     try {
       const token = localStorage.getItem("jwtToken");
@@ -148,7 +160,18 @@ export const OwnProfilePage = () => {
             <ul>
               <li>{userData ? userData.email : "Loading..."}</li>
               <li>Hobbies</li>
-              <li>Languages</li>
+              <div className="edit-user-form">
+                <form onSubmit={handleEditUser}>
+                  <input
+                    type="text"
+                    placeholder="New name"
+                    value={newName}
+                    onChange={(e) => setNewName(e.target.value)}
+                  />
+                  <button type="submit">Update Name</button>
+                </form>
+              </div>
+
               <button onClick={handleDeleteUser}>Delete user</button>
               <button onClick={handleEditUser}>Edit user</button>
             </ul>
