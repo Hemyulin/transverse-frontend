@@ -14,6 +14,7 @@ import { SignInPage } from "./pages/SignInPage";
 import LogoutPage from "./pages/SignOutPage";
 import AboutPage from "./pages/AboutPage";
 import OfferPage from "./pages/OfferPage";
+import { OffersListPage } from "./pages/OffersListPage";
 import OtherUser from "./pages/OtherUser";
 
 //states
@@ -72,6 +73,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/offer-page/:id" element={<OfferPage />} />
+        <Route path="/offers-list-page" element={<OffersListPage />} />
         <Route path="/protected/users/:userId" element={<OtherUser />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

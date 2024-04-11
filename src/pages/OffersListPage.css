@@ -1,0 +1,13 @@
+.offer-panel {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.offer-panel:hover {
+  background-color: #4a4747;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
