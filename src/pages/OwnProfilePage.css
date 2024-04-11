@@ -37,7 +37,11 @@ li {
 
 .profile-details {
 }
-
+.new-offer-input-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
 .top-info-div {
   margin-top: 1em;
   display: flex;
@@ -57,7 +61,7 @@ li {
 }
 
 .offer-card img {
-  max-width: 100%;
+  max-width: 80%;
   height: auto;
   border-radius: 4px;
   margin-bottom: 20px;

@@ -186,7 +186,7 @@ export const OwnProfilePage = () => {
           </div>
         </div>
         <div className="profile-details">
-          <form onSubmit={handleAddOffer}>
+          <form className="new-offer-input-form" onSubmit={handleAddOffer}>
             <input
               type="text"
               placeholder="Title"
