@@ -6,7 +6,7 @@ import "./OwnProfilePage.css";
 import { useNavigate } from "react-router-dom";
 
 export const OwnProfilePage = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logOutUser } = useContext(AuthContext);
   const [userData, setUserData] = useState();
   const [offers, setOffers] = useState([]);
   const [newOffer, setNewOffer] = useState({
@@ -66,6 +66,8 @@ export const OwnProfilePage = () => {
       });
 
       console.log("User deleted!");
+
+      logOutUser();
       localStorage.removeItem("jwtToken");
       navigate("/showcase");
     } catch (err) {
