@@ -37,7 +37,6 @@ export const OffersListPage = () => {
         >
           <h3>{offer.title}</h3>
           <p>{offer.description}</p>
-          {/* Make sure offer.host exists before trying to access userName */}
           <p>Hosted by: {offer.host ? offer.host.userName : "Unknown"}</p>
         </div>
       ))}
