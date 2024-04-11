@@ -16,29 +16,29 @@ export const OwnProfilePage = () => {
   const [newName, setNewName] = useState("");
 
   const navigate = useNavigate();
+  const fetchUserProfile = async () => {
+    const token = localStorage.getItem("jwtToken");
+    if (!token) {
+      console.log("JWT token not found!");
+      navigate("/sign-in");
+      return;
+    }
+    const userProfileResponse = await axios.get(`${API_URL}/protected/user`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setUserData(userProfileResponse.data);
+  };
+
+  // Fetch offers
+  const fetchOffers = async () => {
+    const token = localStorage.getItem("jwtToken");
+    const offersResponse = await axios.get(`${API_URL}/api/offers`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setOffers(offersResponse.data.offers);
+  };
 
   useEffect(() => {
-    const fetchUserProfile = async () => {
-      const token = localStorage.getItem("jwtToken");
-      if (!token) {
-        console.log("JWT token not found!");
-        navigate("/sign-in");
-        return;
-      }
-      const userProfileResponse = await axios.get(`${API_URL}/protected/user`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setUserData(userProfileResponse.data);
-    };
-
-    const fetchOffers = async () => {
-      const token = localStorage.getItem("jwtToken");
-      const offersResponse = await axios.get(`${API_URL}/api/offers`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setOffers(offersResponse.data.offers);
-    };
-
     fetchUserProfile();
     fetchOffers();
   }, [user, navigate]);
@@ -46,13 +46,18 @@ export const OwnProfilePage = () => {
   const handleAddOffer = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("jwtToken");
+    const offerWithHost = { ...newOffer, host: user._id };
     try {
-      const response = await axios.post(`${API_URL}/api/offers`, newOffer, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setNewOffer({ title: "", description: "" });
+      const response = await axios.post(
+        `${API_URL}/api/offers`,
+        offerWithHost,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       await fetchOffers();
       await fetchUserProfile();
+      setNewOffer({ title: "", description: "" }); // Reset newOffer state
     } catch (err) {
       console.error("Failed to add offer", err);
     }
