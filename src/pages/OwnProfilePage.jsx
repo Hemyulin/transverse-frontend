@@ -187,11 +187,9 @@ export const OwnProfilePage = () => {
         {offers &&
           offers.map((offer) => (
             <div className="offer-card" key={offer._id}>
-              {/* Title and description */}
               <h4>{offer.title}</h4>
               <p>{offer.description}</p>
 
-              {/* Editable fields */}
               <input
                 type="text"
                 value={offer.title}
