@@ -35,8 +35,6 @@ li {
   list-style-type: none;
 }
 
-.profile-details {
-}
 .new-offer-input-form {
   display: flex;
   flex-direction: column;

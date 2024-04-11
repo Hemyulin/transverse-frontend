@@ -167,7 +167,7 @@ export const OwnProfilePage = () => {
           <div className="profile-info">
             <ul>
               <li>{userData ? userData.email : "Loading..."}</li>
-              <li>Hobbies</li>
+              <li>User edit:</li>
               <div className="edit-user-form">
                 <form onSubmit={handleEditUser}>
                   <input
