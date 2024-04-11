@@ -8,3 +8,9 @@
   height: 700px;
   border-bottom: 1px solid black;
 }
+.tab {
+  border: solid 2px;
+  border-radius: 5px;
+  width: 400px;
+  height: 250px;
+}

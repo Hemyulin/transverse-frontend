@@ -293,7 +293,7 @@ export const OwnProfilePage = () => {
                   });
                 }}
               ></textarea>
-              <p>{offer.host?._id}</p>
+
               <p>{offer.host?.userName}</p>
               <p>{offer.host?.email}</p>
               <div className="buttons-div">

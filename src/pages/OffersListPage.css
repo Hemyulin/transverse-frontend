@@ -1,13 +1,35 @@
 .offer-panel {
   border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
   transition: all 0.3s ease;
   cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.offer-card {
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  padding: 10px;
+  background-color: black;
 }
 
 .offer-panel:hover {
   background-color: #4a4747;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.offer-panel img {
+  max-width: 80%;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.offer-panel h3,
+.offer-panel p {
+  text-align: center;
 }

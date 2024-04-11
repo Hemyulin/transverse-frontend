@@ -56,7 +56,20 @@ const OfferPage = () => {
             <h3>Hosted by: {offerDetails.host.name}</h3>
           </div>
         )}
+        <div className="offer-card">
+          <img src={offerDetails.offerImage}></img>
+        </div>
       </div>
+
+      {/* <div className="offer-details">
+
+        <div className="offer-card">
+          <img src={offerDetails.offerDetailsImage}></img>
+        </div>
+        <p>Available From: {formatDate(offer.availableFrom)}</p>
+        <p>Available Until: {formatDate(offerDetails.availableUntil)}</p>
+        <p>Utilities: {offerDetails.utilities.join(", ")}</p>
+      </div> */}
       <Footer />
     </div>
   );
