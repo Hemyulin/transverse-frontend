@@ -164,6 +164,20 @@ export const OwnProfilePage = () => {
               )}
             </div>
             <h4>{userData ? userData.userName : "Loading..."}</h4>
+            <p>
+              Speaks:
+              {userData
+                ? userData.spokenLanguages.map((lang, index) => (
+                    <div key={index}>
+                      <span>{lang}</span>
+                    </div>
+                  ))
+                : "Loading..."}
+            </p>
+            <p>
+              Accepts:
+              {userData ? userData.hostedLanguages : "Loading..."}
+            </p>
           </div>
           <div className="profile-info">
             <ul>
