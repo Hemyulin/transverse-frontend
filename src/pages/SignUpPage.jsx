@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
+import { AuthContext } from "../authContext/auth.context";
 import { Link, useNavigate } from "react-router-dom";
 import { API_URL } from "../config";
 
@@ -13,6 +14,7 @@ function SignUpPage() {
     profileImage: "",
   });
 
+  const { authenticateUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -44,6 +46,7 @@ function SignUpPage() {
       const { token } = response.data;
       if (token) {
         localStorage.setItem("jwtToken", token);
+        await authenticateUser();
         navigate("/user-home");
       } else {
         console.log("Token not received");

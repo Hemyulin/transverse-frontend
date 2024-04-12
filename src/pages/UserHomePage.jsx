@@ -4,6 +4,8 @@ import { AuthContext } from "../authContext/auth.context";
 import { useNavigate, Link } from "react-router-dom";
 import "./UserHomePage.css";
 import ImageCarousel from "../components/Carousel";
+import { API_URL } from "../config";
+
 function UserHomePage() {
   const [userData, setUserData] = useState(null);
   const { logOutUser } = useContext(AuthContext);
@@ -12,7 +14,17 @@ function UserHomePage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/api/user/data");
+        const token = localStorage.getItem("jwtToken");
+        if (!token) {
+          console.error("JWT token not found!");
+          return;
+        }
+
+        const response = await axios.get(`${API_URL}/protected/user`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setUserData(response.data);
       } catch (error) {
         console.error("Error finding data", error);
