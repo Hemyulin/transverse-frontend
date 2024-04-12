@@ -35,14 +35,12 @@ function SignUpPage() {
         .split(",")
         .map((lang) => lang.trim()),
     };
-    console.log(formData);
 
     try {
       const response = await axios.post(
         `${API_URL}/auth/registration`,
         submitData
       );
-      console.log(submitData);
       const { token } = response.data;
       if (token) {
         localStorage.setItem("jwtToken", token);

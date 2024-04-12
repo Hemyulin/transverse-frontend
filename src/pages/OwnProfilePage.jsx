@@ -66,6 +66,7 @@ export const OwnProfilePage = () => {
       await axios.post(`${API_URL}/api/offers`, offerWithHost, {
         headers: { Authorization: `Bearer ${token}` },
       });
+
       await fetchOffers();
       setNewOffer({
         title: "",
@@ -93,7 +94,6 @@ export const OwnProfilePage = () => {
         }
       );
 
-      console.log("User name updated!", response.data);
       setUserData(response.data.updatedUser);
       alert("Name updated successfully!");
     } catch (err) {
@@ -101,6 +101,7 @@ export const OwnProfilePage = () => {
       alert("Failed to update name");
     }
   };
+
   const handleDeleteUser = async () => {
     try {
       const token = localStorage.getItem("jwtToken");
