@@ -1,19 +1,26 @@
-Transverse
-About Transverse
+# Transverse
+
+## About Transverse
+
 Welcome to Transverse, where connections are more than just digital—they are meaningful experiences that bridge languages, cultures, and continents. Our platform is dedicated to revolutionizing how individuals explore the world and learn languages through authentic cultural exchanges.
 
-Key Features
-Authentic Cultural Immersions: Engage in genuine cultural experiences by living with local families or participating in daily local activities across over 40 countries.
-Language Learning: Enhance language skills through real-world practice in a native environment.
-Connections That Last: Build lasting friendships and a supportive community network.
-Safety and Security: Enjoy a secure and safe environment as you travel and learn.
-Our Mission
+### Key Features
+
+- **Authentic Cultural Immersions**: Engage in genuine cultural experiences by living with local families or participating in daily local activities across over 40 countries.
+- **Language Learning**: Enhance language skills through real-world practice in a native environment.
+- **Connections That Last**: Build lasting friendships and a supportive community network.
+- **Safety and Security**: Enjoy a secure and safe environment as you travel and learn.
+
+### Our Mission
+
 At Transverse, we aim to blend the beauty of travel with the power of language learning, creating a community where every trip is an opportunity for genuine cultural immersion and language practice.
 
-Getting Started
+## Getting Started
+
 To get started with Transverse, follow these instructions to set up the project locally for both the front-end and back-end.
 
-Prerequisites
+### Prerequisites
+
 Web Browser (Chrome/Firefox/Safari)
 Internet Connection
 Git
