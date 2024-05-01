@@ -27,7 +27,7 @@ const EnterButton = () => {
   }, [translations.length]);
 
   return (
-    <button onClick={() => navigate("/")}>
+    <button onClick={() => navigate("/sign-in-page")}>
       {translations[currentTranslation]}
     </button>
   );

@@ -16,7 +16,7 @@ const OfferPage = () => {
       setLoading(true);
       setError("");
       try {
-        const response = await axios.get(`${API_URL}/api/offers/${id}`);
+        const response = await axios.get(`${API_URL}/api/offers`);
         setOfferDetails(response.data);
       } catch (error) {
         console.error("Could not fetch the offer:", error);

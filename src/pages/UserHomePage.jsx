@@ -3,8 +3,9 @@ import axios from "axios";
 import { AuthContext } from "../authContext/auth.context";
 import { useNavigate, Link } from "react-router-dom";
 import "./UserHomePage.css";
-import ImageCarousel from "../components/Carousel";
+// import ImageCarousel from "../components/Carousel";
 import { API_URL } from "../config";
+import { OffersListPage } from "./OffersListPage";
 
 function UserHomePage() {
   const [userData, setUserData] = useState(null);
@@ -43,7 +44,8 @@ function UserHomePage() {
       <h1>Welcome to Transverse</h1>
 
       <div className="carousel">
-        <ImageCarousel />
+        <OffersListPage />
+        {/* <ImageCarousel /> */}
       </div>
       <Link to="/profile">
         <button>Your Profile</button>
