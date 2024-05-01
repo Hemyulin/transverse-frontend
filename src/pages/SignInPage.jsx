@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../authContext/auth.context.jsx";
 import { API_URL } from "../config";
+import "./SignUpPage.css";
 
 export const SignInPage = () => {
   const [formData, setFormData] = useState({
@@ -42,7 +43,7 @@ export const SignInPage = () => {
   };
 
   return (
-    <div>
+    <div className="signInPage">
       <h1>Sign in</h1>
       <form className="sign-in-form" onSubmit={handleSubmit}>
         <div className="input-div">
